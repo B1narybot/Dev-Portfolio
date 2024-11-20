@@ -1,28 +1,152 @@
-<svg id="background" width='1728' height='1235' viewBox="0 0 1728 1235" fill='none' xmlns='http://www.w3.org/2000/svg'><g opacity='0.75' filter='url(#filter0_f_39_143)'><circle cy='1000' r='264' fill='url(#paint0_linear_39_143)'/></g><g opacity='0.65' filter='url(#filter1_f_39_143)'><circle cx='1720' cy='264' r='379' fill='url(#paint1_linear_39_143)'/></g><defs><filter id='filter0_f_39_143' x='-485' y='515' width='970' height='970' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'><feFlood flood-opacity='0' result='BackgroundImageFix'/><feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/><feGaussianBlur stdDeviation='110.5' result='effect1_foregroundBlur_39_143'/></filter><filter id='filter1_f_39_143' x='1120' y='-336' width='1200' height='1200' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'><feFlood flood-opacity='0' result='BackgroundImageFix'/><feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/><feGaussianBlur stdDeviation='110.5' result='effect1_foregroundBlur_39_143'/></filter><linearGradient id='paint0_linear_39_143' x1='196.5' y1='902' x2='-2.55853e-05' y2='1264' gradientUnits='userSpaceOnUse'><stop stop-color="var(--bttm-left-blur-1)"/><stop offset='1' stop-color="var(--bttm-left-blur-2)"/></linearGradient><linearGradient id='paint1_linear_39_143' x1='1720' y1='-115' x2='1720' y2='643' gradientUnits='userSpaceOnUse'><stop stop-color="var(--top-right-blur-1)"/><stop offset='1' stop-color="var(--top-right-blur-2)" /></linearGradient></defs></svg>     
-<div id="content">
-  <div class="header">
-    <h1>Quickstart Template</h1>
-    <div class="logo">
-      <img src="https://user-images.githubusercontent.com/43764894/223549637-2715c89d-a44e-42e0-8f6c-fa6246279658.png">
-    </div>
-    <h2>
-      This is a bare-bones Angular project that has everything you need to quickly deploy it to Netlify
-    </h2>
-    <div class="bttns">
-      <a href="https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/angular-quickstart" class="bttn primary">Deploy to Netlify</a>
-      <a href="https://github.com/netlify-templates/angular-quickstart" class="bttn secondary">View Repo</a>
-    </div>
+<nav class="navbar" [ngClass]="{'open': navOpen}">
+  <div class="navbar-header">
+      <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}">&#9776;</div> <!-- Hamburger icon -->
+      <!-- <h1>Tounga_P</h1> -->
   </div>
-  <div class="resource-list">
-    <ul>
-      <li>
-        <a href="https://www.netlify.com/tags/angular/">Netlify Blog: Angular posts</a>
-      <li>
-        <a href="https://docs.netlify.com/">Netlify Docs</a>
-      </li>
-      <li>
-        <a href="https://angular.io/">Angular Docs</a>
-      </li>
-    </ul>
+  <ul class="nav-links" #navLinks [ngClass]="{'show': navOpen}">
+    <li><a href="#portfolio-section">ABOUT</a></li>
+    <li><a href="#Skills-Section">SKILLS</a></li>
+    <li><a href="#work-section">WORK</a></li>
+</ul>
+  <div class="contact">
+      <a href="#contact-section" class="contact-link">CONTACT ME</a>
   </div>
+</nav>
+
+<section id="portfolio-section">
+  <div class="portfolio-section">
+      <h1>ABOUT</h1>
+      <img src="../assets/Tounga_Web-Portrait.png" alt="Tounga Portrait">
+      <div class="bio">
+          <p>This is the first paragraph of my bio. I am a passionate developer with a love for creating dynamic and responsive web applications. My journey in tech began at a young age, and I have honed my skills through various projects and experiences.</p>
+          <p>In my professional career, I have worked on numerous projects that have helped me develop a strong foundation in web technologies. I enjoy collaborating with teams to bring ideas to life and strive to continuously improve my skills.</p>
+          <p>Outside of work, I love exploring new technologies, participating in hackathons, and contributing to open-source projects. I believe in the power of community and enjoy sharing knowledge with others.</p>
+      </div>
+  </div>
+</section>
+
+<section id="Skills-Section">
+  <div class="Skills-Section">
+      <h1>SKILLS</h1>
+      <!-- <div class="row no-gutters">
+          <div class="col-sm-6 pl-progress-block">
+                  <svg id="animated" viewbox="0 1 100 100">
+                      <circle cx="50" cy="50" r="40" stroke="#dcdedf" stroke-width="15" fill="#fff" />
+                      <path id="progress" stroke-linecap="round" stroke-width="14" stroke="#48d27f" fill="none"
+                      d="M50 10
+                      a 40 40 0 0 1 0 80
+                      a 40 40 0 0 1 0 -80">
+                      </path>
+                      <text id="count" x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#509b6e">62%</text>
+                  </svg>
+              </div>
+              <div class="text-center mt20 clearfix">CHEMISTRY</div>
+          </div> -->
+          <div class="pl-progress-block">
+              <label>HTML5</label>
+              <div class="progress progress-1">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[0] + '%' }">
+                  <span>{{ progressValues[0] }}%</span>
+                </div>
+              </div>
+            
+              <label>CSS</label>
+              <div class="progress progress-2">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[1] + '%' }">
+                  <span>{{ progressValues[1] }}%</span>
+                </div>
+              </div>
+            
+              <label>JavaScript</label>
+              <div class="progress progress-3">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[2] + '%' }">
+                  <span>{{ progressValues[2] }}%</span>
+                </div>
+              </div>
+            
+              <label>Angular</label>
+              <div class="progress progress-4">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[3] + '%' }">
+                  <span>{{ progressValues[3] }}%</span>
+                </div>
+              </div>
+            
+              <label>MongoDB</label>
+              <div class="progress progress-5">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[4] + '%' }">
+                  <span>{{ progressValues[4] }}%</span>
+                </div>
+              </div>
+            
+              <label>Node.js</label>
+              <div class="progress progress-6">
+                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[5] + '%' }">
+                  <span>{{ progressValues[5] }}%</span>
+                </div>
+              </div>
+            </div>
+            
+      </div>
+</section>
+
+<section id="work-section" class="work-section">
+<div class="work-section-title">
+  <h1>WORK</h1>
 </div>
+</section>
+<div class="card-container">
+<a href="link1.html" class="card">
+  <img src="../assets/gradient-01 2.png" alt="Image 1">
+  <h3>August Intergrted Solutions</h3>
+  <p>This is a short description for card 1.</p>
+</a>
+
+<a href="link2.html" class="card">
+  <img src="../assets/gradient-01 2.png" alt="Image 2">
+  <h3>Global Master</h3>
+  <p>This is a short description for card 2.</p>
+</a>
+
+<a href="link3.html" class="card">
+  <img src="../assets/gradient-01 2.png" alt="Image 3">
+  <h3>Bright Group LTD</h3>
+  <p>This is a short description for card 3.</p>
+</a>
+</div>
+
+<section id="contact-section" class="contact-section">
+<div class="contact-section-title">
+  <h1>CONTACT</h1>
+</div>
+</section>
+<div class="contact-container">
+<!-- Contact Information Section -->
+<div class="contact-info">
+  <div class="contact-item">
+    <img src="../assets/icons8-phone-50.png" alt="Phone Icon" class="contact-icon">
+    <span>+27 67 257 2112</span>
+  </div>
+  <div class="contact-item">
+    <img src="../assets/icons8-gmail-logo-50.png" alt="Email Icon" class="contact-icon">
+    <span>toungas&#64;zohomail.com</span>
+  </div>
+  <div class="contact-item">
+    <img src="../assets/icons8-linkedin-50.png" alt="LinkedIn Icon" class="contact-icon">
+    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;">Tounga Saidou</a>
+  </div>
+  <!-- Add more contact items as needed -->
+</div>
+
+<!-- Form Section -->
+<form class="contact-form">      
+  <input name="name" type="text" class="feedback-input" placeholder="Name" />   
+  <input name="email" type="text" class="feedback-input" placeholder="Email" />
+  <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
+  <input type="submit" value="SUBMIT"/>
+</form>
+</div>
+
+
+<footer class="footer">
+<p>Copyright © 2024 | Prod RYS.INC</p>
+</footer>
