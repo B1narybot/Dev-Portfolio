@@ -19,6 +19,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.navOpen = !this.navOpen;
   }
 
+  closeNav() {
+    this.navOpen = false;
+  }
+
   ngOnInit(): void {
     this.resetProgressBars();
     this.animateProgressBars();

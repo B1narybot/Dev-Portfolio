@@ -1,26 +1,32 @@
 <nav class="navbar" [ngClass]="{'open': navOpen}">
   <div class="navbar-header">
-      <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}">&#9776;</div> <!-- Hamburger icon -->
-      <!-- <h1>Tounga_P</h1> -->
+      <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}"></div> <!-- Hamburger icon -->
   </div>
   <ul class="nav-links" #navLinks [ngClass]="{'show': navOpen}">
-    <li><a href="#portfolio-section">ABOUT</a></li>
-    <li><a href="#Skills-Section">SKILLS</a></li>
-    <li><a href="#work-section">WORK</a></li>
-</ul>
+    <li><a href="#portfolio-section" (click)="closeNav()">ABOUT <span class="arrow">➔</span></a></li>
+    <li><a href="#Skills-Section" (click)="closeNav()">SKILLS <span class="arrow">➔</span></a></li>
+    <li><a href="#work-section" (click)="closeNav()">WORK <span class="arrow">➔</span></a></li>
+    <!-- Logos for mobile dropdown menu -->
+    <div class="mobile-logos">
+      <img src="../assets/icons8-phone-50.png" alt="Logo 1" class="logo">
+      <img src="../assets/icons8-gmail-logo-50.png" alt="Logo 2" class="logo">
+      <img src="../assets/icons8-linkedin-50.png" alt="Logo 3" class="logo">
+    </div>
+  </ul>
   <div class="contact">
-      <a href="#contact-section" class="contact-link">CONTACT ME</a>
+      <a href="#contact-section" class="contact-link" >CONTACT ME</a>
   </div>
 </nav>
+
 
 <section id="portfolio-section">
   <div class="portfolio-section">
       <h1>ABOUT</h1>
       <img src="../assets/Tounga_Web-Portrait.png" alt="Tounga Portrait">
       <div class="bio">
-          <p>This is the first paragraph of my bio. I am a passionate developer with a love for creating dynamic and responsive web applications. My journey in tech began at a young age, and I have honed my skills through various projects and experiences.</p>
-          <p>In my professional career, I have worked on numerous projects that have helped me develop a strong foundation in web technologies. I enjoy collaborating with teams to bring ideas to life and strive to continuously improve my skills.</p>
-          <p>Outside of work, I love exploring new technologies, participating in hackathons, and contributing to open-source projects. I believe in the power of community and enjoy sharing knowledge with others.</p>
+          <p>Hi I'm  Tounga a web developer based in Cape Town, specializing in creating visually compelling and user-friendly digital solutions. With expertise in front-end and back-end development, I focus on building seamless, responsive websites using technologies like Angular, React, TypeScript, and Node.js.</p>
+          <p>Driven by curiosity and a commitment to excellence, I continuously explore new tools and frameworks to stay ahead in the ever-evolving tech landscape. Whether working independently or as part of a team, I strive to deliver polished, impactful results that meet client needs.</p>
+          <p>Passionate about problem-solving and growth, I aim to create websites that not only look great but also provide real value. I’m driven to build digital experiences that engage users, solve problems, and drive business success, while continually exploring new possibilities and pushing the boundaries of web development.</p>
       </div>
   </div>
 </section>
@@ -95,19 +101,19 @@
 </div>
 </section>
 <div class="card-container">
-<a href="link1.html" class="card">
+<a href="https://augustintegrated.co.za/" class="card">
   <img src="../assets/gradient-01 2.png" alt="Image 1">
   <h3>August Intergrted Solutions</h3>
   <p>This is a short description for card 1.</p>
 </a>
 
-<a href="link2.html" class="card">
+<a href="https://global-master.netlify.app/" class="card">
   <img src="../assets/gradient-01 2.png" alt="Image 2">
   <h3>Global Master</h3>
   <p>This is a short description for card 2.</p>
 </a>
 
-<a href="link3.html" class="card">
+<a href="https://brightgroupltd.com/" class="card">
   <img src="../assets/gradient-01 2.png" alt="Image 3">
   <h3>Bright Group LTD</h3>
   <p>This is a short description for card 3.</p>
@@ -124,15 +130,15 @@
 <div class="contact-info">
   <div class="contact-item">
     <img src="../assets/icons8-phone-50.png" alt="Phone Icon" class="contact-icon">
-    <span>+27 67 257 2112</span>
+    <span class="icon-text">+27 67 257 2112</span>
   </div>
   <div class="contact-item">
     <img src="../assets/icons8-gmail-logo-50.png" alt="Email Icon" class="contact-icon">
-    <span>toungas&#64;zohomail.com</span>
+    <span class="icon-text" >toungas&#64;zohomail.com</span>
   </div>
   <div class="contact-item">
     <img src="../assets/icons8-linkedin-50.png" alt="LinkedIn Icon" class="contact-icon">
-    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;">Tounga Saidou</a>
+    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;"><span class="icon-text">Tounga Saidou</span></a>
   </div>
   <!-- Add more contact items as needed -->
 </div>
