@@ -274,6 +274,12 @@ section {
   .portfolio-section {
       flex-direction: column; 
       align-items: center; 
+      
+  }
+
+  #portfolio-section{
+    padding: 10px;
+    margin-top: 85px;
   }
 
   .portfolio-section img {
@@ -355,6 +361,7 @@ section {
 
 #Skills-Section {
   padding-top: 40px;
+  padding: 10px;
   }
 
 .Skills-Section h1::before {
@@ -428,6 +435,80 @@ section {
   right: 45px;
 }
 
+/* Sliding animation */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.skills-heading {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-in-out;
+}
+
+.skills-heading.slide-in-left {
+  animation: slideInLeft 0.8s forwards;
+}
+
+
+ @keyframes fillBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.progress-bar {
+  background-color: #48d27f;
+  height: 20px;
+  line-height: 20px;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: width 0.5s ease-in-out;
+  border-radius: 5px;
+}
+
+.progress-bar.fill-bar {
+  animation: fillBar 1s forwards;
+} 
+
+/* Initial states */
+.heading-wrapper .fade-in,
+.heading-wrapper .line {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 1s ease, transform 5s ease; /* Apply transitions with different timings */
+}
+
+/* When heading is fully inside the viewport, make it visible */
+.heading-wrapper .fade-in.visible,
+.heading-wrapper .line.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Line styling */
+.heading-wrapper .line {
+  width: 50px;
+  height: 4px;
+  background-color: #48d27f;
+  margin-bottom: 10px;
+}
+
+
+
+
 /* =================================================== */
 
 .work-section {
@@ -485,6 +566,18 @@ section {
       padding-left: 0; 
       text-align: center; 
   }
+
+  /* Work heading animation */
+/* .work-heading {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.8s ease;
+}
+
+.work-heading.animate {
+  opacity: 1;
+  transform: translateX(0);
+} */
 
 }
 /* =================================================== */

@@ -1,19 +1,19 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  // standalone: true,
-  // imports: [CommonModule], 
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'DevPortfolio';
-  navOpen = false; 
+  navOpen = false;
 
-  progressValues = [0, 0, 0, 0, 0, 0]; 
+  progressValues = [0, 0, 0, 0, 0, 0];
   finalValues = [95, 82, 78, 70, 66, 80];
+
+  animateHeading = false;
+  animateProgressBars = false;
 
   toggleNav() {
     this.navOpen = !this.navOpen;
@@ -25,12 +25,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.resetProgressBars();
-    this.animateProgressBars();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     setTimeout(() => {
-      this.animateProgressBars();
+      this.animateProgressBarsOnLoad();
     }, 200);
   }
 
@@ -40,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  animateProgressBars(): void {
+  animateProgressBarsOnLoad(): void {
     for (let i = 0; i < this.finalValues.length; i++) {
       this.incrementProgress(i);
     }
@@ -57,6 +56,48 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (value >= targetValue) {
         clearInterval(interval);
       }
-    }, 20); 
+    }, 20);
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const skillsSection = document.getElementById('Skills-Section');
+    const workSection = document.getElementById('work-section');
+
+    if (skillsSection && workSection) {
+      const skillsRect = skillsSection.getBoundingClientRect();
+      const workRect = workSection.getBoundingClientRect();
+
+      if (skillsRect.top <= window.innerHeight && skillsRect.bottom >= 0 && !this.animateHeading) {
+        this.animateHeading = true; 
+        skillsSection.classList.add('visible'); 
+      }
+
+  
+      if (workRect.top <= window.innerHeight && workRect.bottom >= 0 && !this.animateHeading) {
+        this.animateHeading = true; 
+        workSection.classList.add('visible'); 
+      }
+
+      if (skillsRect.top <= window.innerHeight && skillsRect.bottom >= 0 && !this.animateProgressBars) {
+        this.animateProgressBars = true; 
+        for (let i = 0; i < this.finalValues.length; i++) {
+          this.incrementProgress(i);
+        }
+      }
+    }
+  }
+
+  triggerAnimations(): void {
+    if (!this.animateHeading) {
+      this.animateHeading = true; 
+    }
+
+    if (!this.animateProgressBars) {
+      this.animateProgressBars = true; 
+      for (let i = 0; i < this.finalValues.length; i++) {
+        this.incrementProgress(i);
+      }
+    }
   }
 }

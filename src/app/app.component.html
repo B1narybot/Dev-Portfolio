@@ -33,21 +33,9 @@
 
 <section id="Skills-Section">
   <div class="Skills-Section">
-      <h1>SKILLS</h1>
-      <!-- <div class="row no-gutters">
-          <div class="col-sm-6 pl-progress-block">
-                  <svg id="animated" viewbox="0 1 100 100">
-                      <circle cx="50" cy="50" r="40" stroke="#dcdedf" stroke-width="15" fill="#fff" />
-                      <path id="progress" stroke-linecap="round" stroke-width="14" stroke="#48d27f" fill="none"
-                      d="M50 10
-                      a 40 40 0 0 1 0 80
-                      a 40 40 0 0 1 0 -80">
-                      </path>
-                      <text id="count" x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#509b6e">62%</text>
-                  </svg>
-              </div>
-              <div class="text-center mt20 clearfix">CHEMISTRY</div>
-          </div> -->
+    <div class="heading-wrapper">
+      <h1 class="fade-in" [class.visible]="animateHeading">SKILLS</h1>
+    </div>
           <div class="pl-progress-block">
               <label>HTML5</label>
               <div class="progress progress-1">
@@ -90,14 +78,15 @@
                   <span>{{ progressValues[5] }}%</span>
                 </div>
               </div>
-            </div>
-            
+            </div>   
       </div>
 </section>
 
 <section id="work-section" class="work-section">
 <div class="work-section-title">
-  <h1>WORK</h1>
+  <div class="heading-wrapper">
+  <h1 class="fade-in" [class.visible]="animateHeading">WORK</h1>
+  </div>
 </div>
 </section>
 <div class="card-container">
