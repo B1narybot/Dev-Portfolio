@@ -90,22 +90,25 @@
 </div>
 </section>
 <div class="card-container">
-<a href="https://augustintegrated.co.za/" class="card">
+<a href="https://augustintegrated.co.za/" class="card" target="_blank">
   <img src="../assets/gradient-01 2.png" alt="Image 1">
   <h3>August Intergrted Solutions</h3>
-  <p>This is a short description for card 1.</p>
+  <p>Developed with Angular and the MEAN stack, this platform offers tailored business solutions, providing clients with flexibility and a wide range of options. It streamlines workflows,
+     enhances collaboration, and ensures seamless data integration to meet diverse business needs.</p>
 </a>
 
-<a href="https://global-master.netlify.app/" class="card">
+<a href="https://global-master.netlify.app/" class="card" target="_blank">
   <img src="../assets/gradient-01 2.png" alt="Image 2">
   <h3>Global Master</h3>
-  <p>This is a short description for card 2.</p>
+  <p>A sleek agency website developed with React, designed with a focus on simplicity, functionality, and a clean user interface. 
+    This project provides an intuitive platform for showcasing services, ensuring a seamless user experience while maintaining modern design standards.</p>
 </a>
 
-<a href="https://brightgroupltd.com/" class="card">
+<a href="https://brightgroupltd.com/" class="card" target="_blank">
   <img src="../assets/gradient-01 2.png" alt="Image 3">
   <h3>Bright Group LTD</h3>
-  <p>This is a short description for card 3.</p>
+  <p>A premier technology and web solutions provider, offering clients high-quality, top-notch services. This platform highlights Bright Group’s commitment to delivering innovative solutions
+     tailored to meet diverse client needs in the digital space.</p>
 </a>
 </div>
 
@@ -117,23 +120,29 @@
 <div class="contact-container">
 <!-- Contact Information Section -->
 <div class="contact-info">
-  <div class="contact-item">
+  <div class="contact-item" (click)="copyToClipboard('+27 67 257 2112')">
     <img src="../assets/icons8-phone-50.png" alt="Phone Icon" class="contact-icon">
     <span class="icon-text">+27 67 257 2112</span>
   </div>
-  <div class="contact-item">
+  <div class="contact-item" (click)="copyToClipboard('toungas@zohomail.com')">
     <img src="../assets/icons8-gmail-logo-50.png" alt="Email Icon" class="contact-icon">
-    <span class="icon-text" >toungas&#64;zohomail.com</span>
+    <span class="icon-text">toungas&#64;zohomail.com</span>
   </div>
   <div class="contact-item">
+    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;">
     <img src="../assets/icons8-linkedin-50.png" alt="LinkedIn Icon" class="contact-icon">
-    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;"><span class="icon-text">Tounga Saidou</span></a>
+      <span class="icon-text">Tounga Saidou</span>
+    </a>
   </div>
   <!-- Add more contact items as needed -->
 </div>
 
+<!-- Notification Message -->
+<div *ngIf="notificationVisible" class="notification">
+  {{ notificationMessage }}
+</div>
 <!-- Form Section -->
-<form class="contact-form">      
+<form class="contact-form"  name="contact" netlify>      
   <input name="name" type="text" class="feedback-input" placeholder="Name" />   
   <input name="email" type="text" class="feedback-input" placeholder="Email" />
   <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>

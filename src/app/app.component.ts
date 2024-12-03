@@ -15,6 +15,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   animateHeading = false;
   animateProgressBars = false;
 
+  notificationMessage: string | null = null; 
+  notificationVisible = false; 
+
   toggleNav() {
     this.navOpen = !this.navOpen;
   }
@@ -73,7 +76,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         skillsSection.classList.add('visible'); 
       }
 
-  
       if (workRect.top <= window.innerHeight && workRect.bottom >= 0 && !this.animateHeading) {
         this.animateHeading = true; 
         workSection.classList.add('visible'); 
@@ -99,5 +101,33 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.incrementProgress(i);
       }
     }
+  }
+
+  copyToClipboard(text: string): void {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+
+    textarea.style.position = 'fixed';  
+    textarea.style.opacity = '0';        
+    document.body.appendChild(textarea); 
+
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); 
+
+    document.execCommand('copy');
+
+    document.body.removeChild(textarea);
+
+    this.showNotification(`Copied to clipboard: ${text}`);
+  }
+
+  showNotification(message: string): void {
+    this.notificationMessage = message;
+    this.notificationVisible = true;
+
+    setTimeout(() => {
+      this.notificationVisible = false;
+      this.notificationMessage = null;
+    }, 3000);
   }
 }

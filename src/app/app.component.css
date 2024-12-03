@@ -21,13 +21,13 @@
 }
 
 .hamburger {
-  width: 35px; /* Adjust the width of the hamburger */
-  height: 4px; /* Height of the middle line */
-  background: white; /* Middle line color */
+  width: 35px; 
+  height: 4px; 
+  background: white; 
   position: relative;
   margin-right: 15px;
   cursor: pointer;
-  display: none; /* Set to block if you want it visible */
+  display: none; 
   transition: transform 0.3s ease;
 }
 
@@ -37,31 +37,31 @@
   position: absolute;
   width: 100%;
   height: 4px; 
-  background: white; /* Color of the top and bottom lines */
+  background: white; 
   left: 0;
   transition: transform 0.3s ease, top 0.3s ease;
 }
 
 .hamburger::before {
-  top: -10px; /* Position the top line above the middle */
+  top: -10px; 
 }
 
 .hamburger::after {
-  top: 10px; /* Position the bottom line below the middle */
+  top: 10px; 
 }
 
 .hamburger.open {
-  background: transparent; /* Hide the middle line */
+  background: transparent; 
 }
 
 .hamburger.open::before {
-  transform: rotate(45deg); /* Rotate to form one part of the X */
-  top: 0; /* Move to the center */
+  transform: rotate(45deg); 
+  top: 0; 
 }
 
 .hamburger.open::after {
-  transform: rotate(-45deg); /* Rotate to form the other part of the X */
-  top: 0; /* Move to the center */
+  transform: rotate(-45deg); 
+  top: 0; 
 }
 
 .nav-links li .arrow {
@@ -488,10 +488,10 @@ section {
 .heading-wrapper .line {
   opacity: 0;
   transform: translateX(-20px);
-  transition: opacity 1s ease, transform 5s ease; /* Apply transitions with different timings */
+  transition: opacity 1s ease, transform 5s ease; 
 }
 
-/* When heading is fully inside the viewport, make it visible */
+
 .heading-wrapper .fade-in.visible,
 .heading-wrapper .line.visible {
   opacity: 1;
@@ -693,6 +693,20 @@ section {
       margin-right: 20px; 
     }
     
+    .notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9); 
+      color: black; 
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000; 
+      text-align: center;
+      transition: opacity 0.5s ease;
+    }
 /* =================================================== */
 
 form {
@@ -774,12 +788,20 @@ textarea {
   align-items: center;
   gap: 10px; 
   font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+.contact-item a {
+  display: flex; 
+  align-items: center; 
+  text-decoration: none; 
 }
 
 .contact-icon {
   width: 50px;
   height: 50px;
   filter: brightness(0) invert(1);
+  margin-right: 10px;
 }
 
 .contact-form {
