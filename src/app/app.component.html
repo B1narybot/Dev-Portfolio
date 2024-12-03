@@ -142,7 +142,9 @@
   {{ notificationMessage }}
 </div>
 <!-- Form Section -->
-<form class="contact-form" name="contact" method="POST" data-netlify="true">
+<form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+  <!-- Hidden field to prevent spam submissions -->
+  <input type="hidden" name="form-name" value="contact" />
   <input name="name" type="text" class="feedback-input" placeholder="Name" required />
   <input name="email" type="email" class="feedback-input" placeholder="Email" required />
   <textarea name="message" class="feedback-input" placeholder="Comment" required></textarea>
