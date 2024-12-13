@@ -1,9 +1,10 @@
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #2f3640;
+  background: #000000;
   margin: -8px;
   /* padding: 18px; */
   padding-top: 25px;
@@ -144,7 +145,7 @@ h1 {
       left: -250px;
       width: 255px;
       height: 100vh;
-      background-color: #2f3640;
+      background: #000000;
       transition: left 0.3s ease;
       z-index: 1;
       padding-top: 30px;
@@ -373,6 +374,34 @@ section {
   margin: 10px 0 0 !important;
 }
 }
+
+@media (width: 1024px) and (height: 667px) {
+  .bio::before {
+    left: 86px;
+    top: -70px;
+    width: calc(60% + 40px);
+  }
+
+  .Skills-Section h1::before {
+    left: -20px;
+    width: calc(30% + 40px);
+  }
+
+  .work-section-title h1{
+    margin-left: 70px;
+  }
+
+}
+
+@media(width: 1366px) and ( height: 768px) {
+  .Skills-Section h1::before {
+    width: calc(45% + 40px);
+  }
+
+  .contact-container {
+    margin-left: 200px;
+  }
+}
 /* =================================================== */
 .pl-progress-block {
   padding: 0 20px;
@@ -592,7 +621,7 @@ section {
 .card {
   width: 30%;
   text-decoration: none;
-  background-color: #2f3640;
+  background: #000000;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
