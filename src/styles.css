@@ -15,9 +15,5 @@ body {
     radial-gradient(circle at 40% 40%, #9b4d96 30%, rgba(0, 0, 0, 0) 60%), 
     radial-gradient(circle at 60% 60%, #00bfff 15%, rgba(0, 0, 0, 0) 40%); 
   background-size: cover;
-  background-position: center center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  /* background-position: center center; */
 }

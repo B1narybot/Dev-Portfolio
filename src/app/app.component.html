@@ -141,12 +141,15 @@
   {{ notificationMessage }}
 </div>
 <!-- Form Section -->
-<form class="contact-form"  name="contact" netlify>      
-  <input name="name" type="text" class="feedback-input" placeholder="Name" />   
-  <input name="email" type="text" class="feedback-input" placeholder="Email" />
-  <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-  <input type="submit" value="SUBMIT"/>
+<form class="contact-form" name="contact" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="contact" />
+  <!-- Form fields -->
+  <input name="name" type="text" class="feedback-input" placeholder="Name" required />
+  <input name="email" type="email" class="feedback-input" placeholder="Email" required />
+  <textarea name="text" class="feedback-input" placeholder="Comment" required></textarea>
+  <input type="submit" value="SUBMIT" />
 </form>
+
 </div>
 
 <footer class="footer">
