@@ -935,16 +935,19 @@ textarea {
 /* =================================================== */
 
 .footer {
-  background-color: #2f3640; 
+  background: #000000;
   color: #ffffff; 
   text-align: center; 
   padding: 20px 0; 
   font-family: Arial, sans-serif; 
   font-size: 1rem;
+  box-sizing: border-box; 
+  box-shadow: 0 4px 8px grey; 
 }
 
 .footer p {
   margin: 0; 
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 1px; 
 }
+
