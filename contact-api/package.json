@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node server.ts",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "debug": "node --inspect-brk -r ts-node/register server.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,12 +1,22 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import * as nodemailer from 'nodemailer';
+
+console.log('MAIL_USER:', process.env.MAIL_USER);
+console.log('MAIL_PASS:', process.env.MAIL_PASS ? '********' : 'undefined or empty');
+
+if (!process.env.MAIL_USER || !process.env.MAIL_PASS) {
+  throw new Error('Missing MAIL_USER or MAIL_PASS environment variables');
+}
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.com',
   port: 465,
-  secure: true, // true for port 465, false for 587
+  secure: true,
   auth: {
-    user: process.env['MAIL_USER'],
-    pass: process.env['MAIL_PASS'],
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 });
 
@@ -22,7 +32,7 @@ export const sendMail = async (name: string, email: string, text: string) => {
 
   // Confirmation to user
   await transporter.sendMail({
-    from: `"Bright Group Ltd." <${process.env['MAIL_USER']}>`,
+    from: `"Tounga." <${process.env['MAIL_USER']}>`,
     to: email,
     subject: "We've received your message",
     text: `Hi ${name},\n\nThank you for contacting Me. I've received your message and will get back to you shortly.\n\nBest Regards,\nTounga Saidou`
