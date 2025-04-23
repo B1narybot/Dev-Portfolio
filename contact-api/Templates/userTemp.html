@@ -1,66 +1,57 @@
-<div style="font-family: 'Oswald', sans-serif; padding: 30px; background: black; background-image: radial-gradient(circle at 40% 40%, #9b4d96 30%, rgba(0, 0, 0, 0) 60%), radial-gradient(circle at 60% 60%, #00bfff 15%, rgba(0, 0, 0, 0) 40%); background-size: cover; color: white; border-radius: 12px; max-width: 600px; margin: 0 auto;">
+<body style="margin: 0; padding: 0; font-family: 'Oswald', sans-serif; font-weight: 500; line-height: 1.6;">
+  <div style="padding: 0; background: #F1EFEC; border-radius: 12px; max-width: 600px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); overflow: hidden;">
 
-  <!-- Header / Personalized Greeting -->
-  <div>
-    <h2 style="font-size: 26px; font-weight: bold; margin-bottom: 10px; color: #00bfff; text-shadow: 0 2px 10px rgba(0, 255, 255, 0.6);">
-      HEY {{userName | uppercase}}
-    </h2>
-    <p style="margin: 0 0 20px;">Thanks so much for reaching out through my portfolio — I’m genuinely excited to connect with you.</p>
-    <p style="margin-bottom: 20px;">Whether you’re looking to build something bold, improve your online presence, or bring a fresh digital idea to life, you’ve come to the right place.</p>
-  </div>
-
-  <!-- Section 2: What Happens Next + CTA -->
-  <div>
-    <h3 style="color: #00bfff; margin-bottom: 10px; font-size: 18px;">📬 What Happens Next</h3>
-    <p style="margin-bottom: 15px;">I’ll be reading through your message carefully and getting back to you shortly with my thoughts or suggestions.</p>
-    <p style="margin-bottom: 20px;">In the meantime, if you have more details to add or want to fast-track the conversation, feel free to reply or click below:</p>
-    <a href="#" style="display: inline-block; background: #00bfff; color: black; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,255,224,0.2);">
-      Book a Call
-    </a>
-  </div>
-
-  <!-- Section 3: Friendly Send-Off + Progress Bar -->
-  <div style="margin-top: 40px;">
-    <p style="margin-bottom: 20px;">🙌 Looking forward to chatting soon!</p>
-    <p style="margin-top: 0;">Best regards,<br><strong>Tounga Saidou</strong><br>Web Developer | Creative Technologist</p>
-
-    <!-- Progress Bar -->
-    <div style="width: 100%; height: 4px; background: #ffffff33; overflow: hidden; border-radius: 8px; margin-top: 20px;">
-      <div style="width: 100%; height: 100%; background: linear-gradient(to right, #00ffe0, #007cf0); animation: loadBar 2s infinite;"></div>
+    <!-- Header -->
+    <div style="background: #7A1CAC; padding: 20px; text-align: center;">
+      <h2 style="font-size: 26px; font-weight: 500; margin: 0; color: #ffffff;">HEY {{userName | uppercase}}</h2>
     </div>
+
+    <!-- Body Content -->
+    <div style="padding: 30px; color: #000000;">
+
+      <div>
+        <p style="margin: 0 0 20px; color: #000000;">Thanks for getting in touch — it’s a pleasure to connect.</p>
+        <p style="margin-bottom: 20px; color: #000000;">I’ve received your message and look forward to learning more about your goals. Whether you're initiating a new project or scaling an existing solution.</p>
+      </div>
+
+      <div>
+        <h3 style="color: #7A1CAC; margin-bottom: 10px; font-size: 18px;">📬 What’s Next</h3>
+        <p style="margin-bottom: 15px; color: #000000;">I’ll review your message and follow up shortly with insights and suggested next steps tailored to your objectives.<br>
+        In the meantime, feel free to reply with any additional information, files, or ideas you’d like to share.</p>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <p style="margin-bottom: 20px; color: #000000;">I look forward to learning more about your vision and how I can contribute to its success.</p>
+        <p style="margin-top: 0; color: #000000;">Best regards,<br><strong style="color: #000000;">Tounga Saidou</strong><br>Web Developer | Creative Technologist</p>
+      </div>
+
+      <hr style="border: 1px solid #ddd; margin: 40px 0;" />
+
+      <div>
+        <h4 style="margin-bottom: 10px; color: #7A1CAC;">Summary of Your Message:</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; color: #000000;">
+          <li style="margin-bottom: 8px;"><strong>Name:</strong> {{userName}}</li>
+          <li><strong>Message:</strong> {{userMessage}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer (Attached + Styled) -->
+    <!-- Footer (Fixed) -->
+    <div style="background: #7A1CAC; padding: 20px 0; text-align: center;">
+      <p style="font-size: 14px; margin-bottom: 10px; color: #ffffff;">Let’s stay connected:</p>
+      <div style="display: inline-block;">
+        <a href="https://github.com/B1narybot" target="_blank" style="margin: 0 10px; display: inline-block;">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" alt="GitHub" width="24" style="display: inline-block;" />
+        </a>
+        <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="margin: 0 10px; display: inline-block;">
+          <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" width="24" style="display: inline-block;" />
+        </a>
+        <a href="https://twitter.com/yourusername" target="_blank" style="margin: 0 10px; display: inline-block;">
+          <img src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="Twitter/X" width="24" style="display: inline-block;" />
+        </a>
+      </div>
+    </div>
+    
   </div>
-
-  <!-- Divider -->
-  <hr style="border: 1px solid #ffffff22; margin: 40px 0;" />
-
-  <!-- Original Message Summary -->
-  <div>
-    <h4 style="margin-bottom: 10px; color: #00bfff;">Summary of Your Message:</h4>
-    <ul style="list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 8px;"><strong>Name:</strong> {{userName}}</li>
-      <li><strong>Message:</strong> {{userMessage}}</li>
-    </ul>
-  </div>
-
-  <!-- Footer with Social Icons -->
-  <div style="text-align: center; margin-top: 40px;">
-    <p style="font-size: 14px; margin-bottom: 10px;">Let's stay connected:</p>
-    <a href="https://github.com/yourusername" style="margin: 0 10px;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub" width="24" style="filter: invert(100%);" />
-    </a>
-    <a href="https://linkedin.com/in/yourusername" style="margin: 0 10px;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" width="24" style="filter: invert(100%);" />
-    </a>
-    <a href="https://twitter.com/yourusername" style="margin: 0 10px;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter" width="24" style="filter: invert(100%);" />
-    </a>
-  </div>
-</div>
-
-<!-- Subtle Animation Only: Progress Bar -->
-<style>
-@keyframes loadBar {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-</style>
+</body>
