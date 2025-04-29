@@ -130,4 +130,34 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.notificationMessage = null;
     }, 3000);
   }
+
+  submitForm(event: Event) {
+    event.preventDefault(); // Prevent default form submission
+  
+    const form = event.target as HTMLFormElement;
+  
+    const formData = {
+      name: (form.querySelector('[name="name"]') as HTMLInputElement).value,
+      email: (form.querySelector('[name="email"]') as HTMLInputElement).value,
+      text: (form.querySelector('[name="text"]') as HTMLTextAreaElement).value
+    };
+  
+    fetch('http://localhost:5000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.message);
+      this.showNotification(data.message || 'Message sent successfully!');
+      form.reset();
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      this.showNotification('Something went wrong. Please try again later.');
+    });
+  }
 }

@@ -5,15 +5,18 @@
   font-style: normal;
 }
 body {
-  /* background-color: #1e272e; */
   margin: 0;
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  background: #000000; 
+
+  background-color: #000000;
   background-image: 
-    radial-gradient(circle at 40% 40%, #9b4d96 30%, rgba(0, 0, 0, 0) 60%), 
-    radial-gradient(circle at 60% 60%, #00bfff 15%, rgba(0, 0, 0, 0) 40%); 
+    radial-gradient(circle at 40% 40%, #9b4d96 30%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 60% 60%, #00bfff 15%, rgba(0, 0, 0, 0) 40%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
-  /* background-position: center center; */
+  background-position: center center;
+  color: #ffffff;
 }
