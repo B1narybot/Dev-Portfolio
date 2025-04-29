@@ -1,3 +1,66 @@
+/* Hide content by default */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Smooth fade-in for main site */
+.fade-in {
+  opacity: 1;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Smooth fade-out for loader */
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Loader background and pulse (same as earlier) */
+.loader-wrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  background-image: 
+    radial-gradient(circle at 40% 40%, #9b4d96 30%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 60% 60%, #00bfff 15%, rgba(0, 0, 0, 0) 40%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-position: center center;
+  animation: pulseBackground 6s ease-in-out infinite;
+}
+
+.loader-content {
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  color: white;
+  animation: pulseText 2s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes pulseBackground {
+  0%, 100% {
+    background-size: 100% 100%;
+    filter: brightness(1);
+  }
+  50% {
+    background-size: 105% 105%;
+    filter: brightness(1.15);
+  }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.6; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
 
 .navbar {
   display: flex;
@@ -122,7 +185,7 @@ h1 {
 
 
 .mobile-logos {
-  display: none; 
+  display: none;
   text-align: center; 
   padding: 20px 0; 
   filter: brightness(0) invert(1); 
@@ -133,7 +196,6 @@ h1 {
   height: auto;
   margin: 0 15px; 
 }
-
 
 
 @media (max-width: 768px) {
@@ -211,6 +273,38 @@ section {
   padding-top: 195px;
 }
 
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 3s ease-out; 
+}
+
+[data-animate].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-animate="fade-left"] {
+  transform: translateX(-60px);
+}
+[data-animate="fade-left"].in-view {
+  transform: translateX(0);
+}
+
+[data-animate="fade-right"] {
+  transform: translateX(60px);
+}
+[data-animate="fade-right"].in-view {
+  transform: translateX(0);
+}
+
+[data-animate="fade-in"] {
+  transform: scale(0.9);
+}
+[data-animate="fade-in"].in-view {
+  transform: scale(1);
+}
+
 .portfolio-section {
   display: flex;
   width: 80%;
@@ -229,7 +323,6 @@ section {
   top: -115px;
   left: 0;
   width: 50%;
-  /* background-color: rgba(0, 0, 0, 0.5); */
   color: white;
   font-size: 11rem;
   padding: 20px;
@@ -238,14 +331,12 @@ section {
   z-index: 1;
 }
 
-
 .bio {
   width: 50%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* background-color: #fff; */
 }
 
 .bio::before {
@@ -265,50 +356,48 @@ section {
   color: white;
 }
 
-/* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
   section {
-      padding: 20px; 
-      padding-top: 70px; 
+    padding: 20px;
+    padding-top: 70px;
   }
 
   .portfolio-section {
-      flex-direction: column; 
-      align-items: center; 
-      
+    flex-direction: column;
+    align-items: center;
   }
 
-  #portfolio-section{
+  #portfolio-section {
     padding: 10px;
     margin-top: 85px;
   }
 
   .portfolio-section img {
-      width: 100%; 
-      height: auto;
+    width: 100%;
+    height: auto;
   }
 
   .portfolio-section h1 {
-      font-size: 5rem;
-      top: -65px;
-      width: 100%;
-      text-align: center;
-      left: -15px;
+    font-size: 5rem;
+    top: -65px;
+    width: 100%;
+    text-align: center;
+    left: -15px;
   }
 
   .bio {
-      width: 100%; 
-      padding: 20px; 
-      text-align: center; 
+    width: 100%;
+    padding: 20px;
+    text-align: center;
   }
 
   .bio p {
-      margin-bottom: 15px; 
-      padding: 0 8px;
+    margin-bottom: 15px;
+    padding: 0 8px;
   }
 
-  .bio::before{
-      display: none; 
+  .bio::before {
+    display: none;
   }
 }
 
@@ -535,9 +624,6 @@ section {
   margin-bottom: 10px;
 }
 
-
-
-
 /* =================================================== */
 
 .work-section {
@@ -595,19 +681,6 @@ section {
       padding-left: 0; 
       text-align: center; 
   }
-
-  /* Work heading animation */
-/* .work-heading {
-  opacity: 0;
-  transform: translateX(100px);
-  transition: all 0.8s ease;
-}
-
-.work-heading.animate {
-  opacity: 1;
-  transform: translateX(0);
-} */
-
 }
 /* =================================================== */
 

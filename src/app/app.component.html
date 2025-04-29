@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div *ngIf="showLoader" [ngClass]="{'fade-out': !isLoading}" class="loader-wrapper">
+  <div class="loader-content">Loading...</div>
+</div>
+
+<div [ngClass]="{'fade-in': !isLoading, 'hidden': isLoading}" class="portfolio-content">
+
+  <!-- Navigation -->
 <nav class="navbar" [ngClass]="{'open': navOpen}">
   <div class="navbar-header">
       <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}"></div> 
@@ -12,144 +20,163 @@
       <img src="../assets/icons8-gmail-logo-50.png" alt="Logo 2" class="logo">
       <img src="../assets/icons8-linkedin-50.png" alt="Logo 3" class="logo">
     </div>
-  </ul>
-  <div class="contact">
-      <a href="#contact-section" class="contact-link" >CONTACT ME</a>
-  </div>
-</nav>
-
-<section id="portfolio-section">
-  <div class="portfolio-section">
-      <h1>ABOUT</h1>
-      <img src="../assets/Tounga_Web-Portrait.png" alt="Tounga Portrait">
-      <div class="bio">
-          <p>Hi I'm  Tounga a web developer based in Cape Town, specializing in creating visually compelling and user-friendly digital solutions. With expertise in front-end and back-end development, I focus on building seamless, responsive websites using technologies like Angular, React, TypeScript, and Node.js.</p>
-          <p>Driven by curiosity and a commitment to excellence, I continuously explore new tools and frameworks to stay ahead in the ever-evolving tech landscape. Whether working independently or as part of a team, I strive to deliver polished, impactful results that meet client needs.</p>
-          <p>Passionate about problem-solving and growth, I aim to create websites that not only look great but also provide real value. I’m driven to build digital experiences that engage users, solve problems, and drive business success, while continually exploring new possibilities and pushing the boundaries of web development.</p>
+    <ul class="nav-links" #navLinks [ngClass]="{'show': navOpen}">
+      <li><a href="#portfolio-section" (click)="closeNav()">ABOUT <span class="arrow">➔</span></a></li>
+      <li><a href="#Skills-Section" (click)="closeNav()">SKILLS <span class="arrow">➔</span></a></li>
+      <li><a href="#work-section" (click)="closeNav()">WORK <span class="arrow">➔</span></a></li>
+      <!-- Logos for mobile dropdown menu -->
+      <div class="mobile-logos">
+        <img src="../assets/icons8-phone-50.png" alt="Logo 1" class="logo">
+        <img src="../assets/icons8-gmail-logo-50.png" alt="Logo 2" class="logo">
+        <img src="../assets/icons8-linkedin-50.png" alt="Logo 3" class="logo">
       </div>
-  </div>
-</section>
-
-<section id="Skills-Section">
-  <div class="Skills-Section">
-    <div class="heading-wrapper">
-      <h1 class="fade-in" [class.visible]="animateHeading">SKILLS</h1>
+      
+    </ul>
+    <div class="contact">
+      <a href="#contact-section" class="contact-link">CONTACT ME</a>
     </div>
-          <div class="pl-progress-block">
-              <label>HTML5</label>
-              <div class="progress progress-1">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[0] + '%' }">
-                  <span>{{ progressValues[0] }}%</span>
-                </div>
-              </div>
-            
-              <label>CSS</label>
-              <div class="progress progress-2">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[1] + '%' }">
-                  <span>{{ progressValues[1] }}%</span>
-                </div>
-              </div>
-            
-              <label>JavaScript</label>
-              <div class="progress progress-3">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[2] + '%' }">
-                  <span>{{ progressValues[2] }}%</span>
-                </div>
-              </div>
-            
-              <label>Angular</label>
-              <div class="progress progress-4">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[3] + '%' }">
-                  <span>{{ progressValues[3] }}%</span>
-                </div>
-              </div>
-            
-              <label>MongoDB</label>
-              <div class="progress progress-5">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[4] + '%' }">
-                  <span>{{ progressValues[4] }}%</span>
-                </div>
-              </div>
-            
-              <label>Node.js</label>
-              <div class="progress progress-6">
-                <div class="progress-bar" [ngStyle]="{ 'width': progressValues[5] + '%' }">
-                  <span>{{ progressValues[5] }}%</span>
-                </div>
-              </div>
-            </div>   
+  </nav>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio-section">
+    <div class="portfolio-section animate-container">
+      <h1 data-animate="fade-left">ABOUT</h1>
+      <img src="../assets/Tounga_Web-Portrait.png" alt="Tounga Portrait" data-animate="fade-in">
+      <div class="bio" data-animate="fade-right">
+        <p>Hi, I'm Tounga — a <strong>web developer based in Cape Town</strong>, passionate about crafting <strong>visually compelling</strong> and <strong>user-friendly digital experiences</strong>. I specialize in building <strong>responsive websites</strong> and <strong>seamless web applications</strong> that combine creativity with clean code.</p>
+
+        <p>My technical toolkit includes <strong>Angular</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>JavaScript</strong>, <strong>HTML</strong>, <strong>CSS</strong>, <strong>Node.js</strong>, and <strong>Express.js</strong>. I focus on delivering high-performance solutions that function flawlessly across all devices and platforms.</p>
+
+        <p>Driven by curiosity and a commitment to excellence, I’m always exploring the latest tools and frameworks to stay ahead in the ever-evolving web development landscape. Whether working independently or in a team, I strive to build <strong>polished, impactful web solutions</strong> that not only look great but also provide real business value and enhance user engagement.</p>
       </div>
-</section>
+    </div>
+  </section>
+  
+  <!-- Skills Section -->
+  <section id="Skills-Section">
+    <div class="Skills-Section">
+      <div class="heading-wrapper">
+        <h1 class="fade-in" [class.visible]="animateHeading">SKILLS</h1>
+      </div>
+      <div class="pl-progress-block">
+        <label>HTML5</label>
+        <div class="progress progress-1">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[0] + '%' }">
+            <span>{{ progressValues[0] }}%</span>
+          </div>
+        </div>
 
-<section id="work-section" class="work-section">
-<div class="work-section-title">
-  <div class="heading-wrapper">
-  <h1 class="fade-in" [class.visible]="animateHeading">WORK</h1>
-  </div>
-</div>
-</section>
-<div class="card-container">
-<a href="https://augustintegrated.co.za/" class="card" target="_blank">
-  <img src="../assets/gradient-01 2.png" alt="Image 1">
-  <h3>August Intergrted Solutions</h3>
-  <p>Developed with Angular and the MEAN stack, this platform offers tailored business solutions, providing clients with flexibility and a wide range of options. It streamlines workflows,
-     enhances collaboration, and ensures seamless data integration to meet diverse business needs.</p>
-</a>
+        <label>CSS</label>
+        <div class="progress progress-2">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[1] + '%' }">
+            <span>{{ progressValues[1] }}%</span>
+          </div>
+        </div>
 
-<a href="https://global-master.netlify.app/" class="card" target="_blank">
-  <img src="../assets/gradient-01 2.png" alt="Image 2">
-  <h3>Global Master</h3>
-  <p>A sleek agency website developed with React, designed with a focus on simplicity, functionality, and a clean user interface. 
-    This project provides an intuitive platform for showcasing services, ensuring a seamless user experience while maintaining modern design standards.</p>
-</a>
+        <label>JavaScript</label>
+        <div class="progress progress-3">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[2] + '%' }">
+            <span>{{ progressValues[2] }}%</span>
+          </div>
+        </div>
 
-<a href="https://brightgroupltd.com/" class="card" target="_blank">
-  <img src="../assets/gradient-01 2.png" alt="Image 3">
-  <h3>Bright Group LTD</h3>
-  <p>A premier technology and web solutions provider, offering clients high-quality, top-notch services. This platform highlights Bright Group’s commitment to delivering innovative solutions
-     tailored to meet diverse client needs in the digital space.</p>
-</a>
-</div>
+        <label>Angular</label>
+        <div class="progress progress-4">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[3] + '%' }">
+            <span>{{ progressValues[3] }}%</span>
+          </div>
+        </div>
 
-<section id="contact-section" class="contact-section">
-<div class="contact-section-title">
-  <h1>CONTACT</h1>
-</div>
-</section>
-<div class="contact-container">
-<!-- Contact Information Section -->
-<div class="contact-info">
-  <div class="contact-item" (click)="copyToClipboard('+27 67 257 2112')">
-    <img src="../assets/icons8-phone-50.png" alt="Phone Icon" class="contact-icon">
-    <span class="icon-text">+27 67 257 2112</span>
-  </div>
-  <div class="contact-item" (click)="copyToClipboard('toungas@zohomail.com')">
-    <img src="../assets/icons8-gmail-logo-50.png" alt="Email Icon" class="contact-icon">
-    <span class="icon-text">toungas&#64;zohomail.com</span>
-  </div>
-  <div class="contact-item">
-    <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;">
-    <img src="../assets/icons8-linkedin-50.png" alt="LinkedIn Icon" class="contact-icon">
-      <span class="icon-text">Tounga Saidou</span>
+        <label>Express.js</label>
+        <div class="progress progress-5">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[4] + '%' }">
+            <span>{{ progressValues[4] }}%</span>
+          </div>
+        </div>
+
+        <label>Node.js</label>
+        <div class="progress progress-6">
+          <div class="progress-bar" [ngStyle]="{ 'width': progressValues[5] + '%' }">
+            <span>{{ progressValues[5] }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work-section" class="work-section">
+    <div class="work-section-title">
+      <div class="heading-wrapper">
+        <h1 class="fade-in" [class.visible]="animateHeading">WORK</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Cards -->
+  <div class="card-container">
+    <a href="https://augustintegrated.co.za/" class="card" target="_blank">
+      <img src="../assets/gradient-01 2.png" alt="Image 1">
+      <h3>August Integrated Solutions</h3>
+      <p>Built using Angular and (Express.js, Angular, and Node.js), this platform delivers custom business solutions designed for flexibility and scalability. It improves operational efficiency, enhances team collaboration, and supports seamless data integration to address a wide range of business requirements.</p>
+    </a>
+    <a href="https://global-master.netlify.app/" class="card" target="_blank">
+      <img src="../assets/gradient-01 2.png" alt="Image 2">
+      <h3>Global Master</h3>
+      <p>A sleek and modern agency website developed with React, emphasizing simplicity, functionality, and a clean user interface. This responsive web application offers an intuitive platform to showcase services effectively, delivering a seamless user experience while adhering to current web design best practices.</p>
+    </a>
+    <a href="https://brightgroupltd.com/" class="card" target="_blank">
+      <img src="../assets/gradient-01 2.png" alt="Image 3">
+      <h3>Bright Group LTD</h3>
+      <p>A premier provider of technology and web solutions, delivering high-quality, professional services to clients across industries. This platform showcases a strong commitment to innovation, offering customized digital solutions that align with diverse business goals and enhance online presence.</p>
     </a>
   </div>
-</div>
 
-<!-- Notification Message -->
-<div *ngIf="notificationVisible" class="notification">
-  {{ notificationMessage }}
-</div>
-
-<!-- Form Section -->
-<form class="contact-form" (submit)="submitForm($event)">
-  <input name="name" type="text" class="feedback-input" placeholder="Name" required />   
-  <input name="email" type="email" class="feedback-input" placeholder="Email" required />
-  <textarea name="text" class="feedback-input" placeholder="Comment" required></textarea>
-  <input type="submit" value="SUBMIT"/>
-</form>
+  <!-- Contact Section -->
+  <section id="contact-section" class="contact-section">
+    <div class="contact-section-title">
+      <h1>CONTACT</h1>
+    </div>
+  </section>
 
 </div>
 
-<footer class="footer">
-<p>Copyright © 2024 | Prod RYS.INC</p>
-</footer>
+  <!-- Contact Information and Form -->
+  <div class="contact-container">
+    <div class="contact-info">
+      <div class="contact-item" (click)="copyToClipboard('+27 67 257 2112')">
+        <img src="../assets/icons8-phone-50.png" alt="Phone Icon" class="contact-icon">
+        <span class="icon-text">+27 67 257 2112</span>
+      </div>
+      <div class="contact-item" (click)="copyToClipboard('toungas@zohomail.com')">
+        <img src="../assets/icons8-gmail-logo-50.png" alt="Email Icon" class="contact-icon">
+        <span class="icon-text">toungas&#64;zohomail.com</span>
+      </div>
+      <div class="contact-item">
+        <a href="https://www.linkedin.com/in/tounga-saidou-188677264/" target="_blank" style="color: white;">
+          <img src="../assets/icons8-linkedin-50.png" alt="LinkedIn Icon" class="contact-icon">
+          <span class="icon-text">Tounga Saidou</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Notification Message -->
+    <div *ngIf="notificationVisible" class="notification">
+      {{ notificationMessage }}
+    </div>
+
+    <!-- Form Section -->
+    <form class="contact-form" (submit)="submitForm($event)">
+      <input name="name" type="text" class="feedback-input" placeholder="Name" required />
+      <input name="email" type="email" class="feedback-input" placeholder="Email" required />
+      <textarea name="text" class="feedback-input" placeholder="Comment" required></textarea>
+      <input type="submit" value="SUBMIT" />
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Copyright © 2024 | Prod RYS.INC</p>
+  </footer>
+
+</div>
