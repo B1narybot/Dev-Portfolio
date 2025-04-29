@@ -6,9 +6,19 @@
 <div [ngClass]="{'fade-in': !isLoading, 'hidden': isLoading}" class="portfolio-content">
 
   <!-- Navigation -->
-  <nav class="navbar" [ngClass]="{'open': navOpen}">
-    <div class="navbar-header">
-      <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}"></div>
+<nav class="navbar" [ngClass]="{'open': navOpen}">
+  <div class="navbar-header">
+      <div class="hamburger" #hamburger (click)="toggleNav()" [ngClass]="{'open': navOpen}"></div> 
+  </div>
+  <ul class="nav-links" #navLinks [ngClass]="{'show': navOpen}">
+    <li><a href="#portfolio-section" (click)="closeNav()">ABOUT <span class="arrow">➔</span></a></li>
+    <li><a href="#Skills-Section" (click)="closeNav()">SKILLS <span class="arrow">➔</span></a></li>
+    <li><a href="#work-section" (click)="closeNav()">WORK <span class="arrow">➔</span></a></li>
+    <!-- Logos for mobile dropdown menu -->
+    <div class="mobile-logos">
+      <img src="../assets/icons8-phone-50.png" alt="Logo 1" class="logo">
+      <img src="../assets/icons8-gmail-logo-50.png" alt="Logo 2" class="logo">
+      <img src="../assets/icons8-linkedin-50.png" alt="Logo 3" class="logo">
     </div>
     <ul class="nav-links" #navLinks [ngClass]="{'show': navOpen}">
       <li><a href="#portfolio-section" (click)="closeNav()">ABOUT <span class="arrow">➔</span></a></li>
@@ -128,6 +138,8 @@
       <h1>CONTACT</h1>
     </div>
   </section>
+
+</div>
 
   <!-- Contact Information and Form -->
   <div class="contact-container">
