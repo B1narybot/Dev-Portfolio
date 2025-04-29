@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main Page -->
+  <url>
+    <loc>https://toungasaidou.netlify.app/</loc>
+    <lastmod>2025-04-29</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Portfolio Section -->
+  <url>
+    <loc>https://toungasaidou.netlify.app/#portfolio-section</loc>
+    <lastmod>2025-04-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Skills Section -->
+  <url>
+    <loc>https://toungasaidou.netlify.app/#Skills-Section</loc>
+    <lastmod>2025-04-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Work Section -->
+  <url>
+    <loc>https://toungasaidou.netlify.app/#work-section</loc>
+    <lastmod>2025-04-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Section -->
+  <url>
+    <loc>https://toungasaidou.netlify.app/#contact-section</loc>
+    <lastmod>2025-04-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>

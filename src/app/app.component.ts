@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   navOpen = false;
 
   progressValues = [0, 0, 0, 0, 0, 0];
-  finalValues = [95, 82, 78, 70, 66, 80];
+  finalValues = [89, 82, 78, 85, 78, 84];
 
   animateHeading = false;
   animateProgressBars = false;
 
   notificationMessage: string | null = null; 
   notificationVisible = false; 
+skills: any;
+// projects: any;
 
   toggleNav() {
     this.navOpen = !this.navOpen;
@@ -31,9 +33,40 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // Trigger progress bar animations after short delay
     setTimeout(() => {
       this.animateProgressBarsOnLoad();
     }, 200);
+  
+    setTimeout(() => {
+      this.isLoading = false;
+    
+      setTimeout(() => {
+        this.showLoader = false;
+    
+        setTimeout(() => {
+          const animatedElements: NodeListOf<HTMLElement> =
+            this.elRef.nativeElement.querySelectorAll('[data-animate]');
+    
+          const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                console.log('Observer triggered:', entry.target);
+                entry.target.classList.add('in-view');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+    
+          animatedElements.forEach(el => {
+            el.classList.remove('in-view'); // Reset for reload
+            observer.observe(el);
+          });
+        }, 100); // small delay to ensure layout has stabilized
+    
+      }, 1500); // matches fade-out
+    }, 6000); // initial delay
+    
   }
 
   resetProgressBars(): void {
@@ -160,4 +193,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.showNotification('Something went wrong. Please try again later.');
     });
   }
+
+  isLoading = true;
+  showLoader = true;
+
+
+  constructor(private elRef: ElementRef) {}
+
 }
