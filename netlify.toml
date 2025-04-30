@@ -1,17 +1,11 @@
 [build]
-  command="ng build"
-  publish="dist/angular-quickstart"
+  command = "ng build"
+  publish = "dist/angular-quickstart"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-  [plugins.inputs.postBuild]
-    enable = true
-
-  [plugins.inputs]
-    enable = false
-
-  [functions]
+[functions]
   directory = "netlify/functions"
