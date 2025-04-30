@@ -96,9 +96,9 @@ exports.handler = async (event) => {
 
     // Send Confirmation to User
     await transporter.sendMail({
-      from: `"Tounga." <${env.MAIL_USER}>`,
+      from: `"Tounga Saidou" <${env.MAIL_USER}>`,
       to: email,
-      subject: "We've received your message",
+      subject: "Message received 👌",
       text: textToUser,
       html: htmlToUser || undefined,
     });
