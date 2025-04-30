@@ -17,8 +17,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   notificationMessage: string | null = null; 
   notificationVisible = false; 
-skills: any;
-// projects: any;
+  skills: any;
+  projects: any;
+
+  isLoading = true;
+  showLoader = true;
+
+  constructor(private elRef: ElementRef) {}
 
   toggleNav() {
     this.navOpen = !this.navOpen;
@@ -37,17 +42,17 @@ skills: any;
     setTimeout(() => {
       this.animateProgressBarsOnLoad();
     }, 200);
-  
+
     setTimeout(() => {
       this.isLoading = false;
-    
+
       setTimeout(() => {
         this.showLoader = false;
-    
+
         setTimeout(() => {
           const animatedElements: NodeListOf<HTMLElement> =
             this.elRef.nativeElement.querySelectorAll('[data-animate]');
-    
+
           const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
@@ -57,16 +62,15 @@ skills: any;
               }
             });
           }, { threshold: 0.3 });
-    
+
           animatedElements.forEach(el => {
             el.classList.remove('in-view'); // Reset for reload
             observer.observe(el);
           });
         }, 100); // small delay to ensure layout has stabilized
-    
+
       }, 1500); // matches fade-out
     }, 6000); // initial delay
-    
   }
 
   resetProgressBars(): void {
@@ -164,40 +168,24 @@ skills: any;
     }, 3000);
   }
 
-  submitForm(event: Event) {
-    event.preventDefault(); // Prevent default form submission
-  
+  submitForm(event: Event): void {
+    event.preventDefault();
+
     const form = event.target as HTMLFormElement;
-  
-    const formData = {
-      name: (form.querySelector('[name="name"]') as HTMLInputElement).value,
-      email: (form.querySelector('[name="email"]') as HTMLInputElement).value,
-      text: (form.querySelector('[name="text"]') as HTMLTextAreaElement).value
-    };
-  
-    fetch('http://localhost:5000/api/contact', {
+    const formData = new FormData(form);
+
+    fetch('/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+      headers: { 'Accept': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(<Record<string, string>>Object.fromEntries(formData as any))
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data.message);
-      this.showNotification(data.message || 'Message sent successfully!');
+    .then(() => {
+      this.showNotification('Message sent successfully!');
       form.reset();
     })
-    .catch(err => {
-      console.error('Error:', err);
+    .catch((error) => {
+      console.error('Form submission error:', error);
       this.showNotification('Something went wrong. Please try again later.');
     });
   }
-
-  isLoading = true;
-  showLoader = true;
-
-
-  constructor(private elRef: ElementRef) {}
-
 }

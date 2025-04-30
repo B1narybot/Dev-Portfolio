@@ -15,3 +15,6 @@
 
   [plugins.inputs]
     enable = false
+
+  [functions]
+  directory = "netlify/functions"
