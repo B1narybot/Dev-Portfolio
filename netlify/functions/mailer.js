@@ -1,9 +1,10 @@
-// netlify/functions/send-email.js
-import * as nodemailer from 'nodemailer';
-import fs from 'fs';
-import path from 'path';
+// netlify/functions/mailer.js
 
-export const handler = async (event) => {
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
+
+exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -20,7 +21,7 @@ export const handler = async (event) => {
     };
   }
 
-  const { name, email, message, phone = '' } = JSON.parse(event.body);
+  const { name, email, message = '' } = JSON.parse(event.body);
   const submissionTime = new Date().toLocaleString();
 
   // --- Load Templates ---
@@ -69,18 +70,18 @@ export const handler = async (event) => {
     userMessage: message,
   });
 
-  const textToAdmin = `New Contact Form Submission\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage:\n${message}`;
+  const textToAdmin = `New Contact Form Submission\n\nName: ${name}\nEmail: ${email}\nMessage:\n${message}`;
   const textToUser = `Hi ${name},\n\nThank you for contacting us. We've received your message and will get back to you shortly.\n\nBest regards,\nTounga Saidou`;
 
   // --- Email Transporter ---
   const transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
     port: 465,
-    secure: true, 
+    secure: true,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      user: env.MAIL_USER,
+      pass: env.MAIL_PASS,
+    },
   });
 
   try {
