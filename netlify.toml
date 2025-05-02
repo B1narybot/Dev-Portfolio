@@ -9,4 +9,7 @@
 
 [functions]
   directory = "netlify/functions"
-  included_files = ["netlify/functions/Templates/*"]
+  included_files = [
+    "netlify/functions/Templates/adminTemp.html",
+    "netlify/functions/Templates/userTemp.html"
+  ]

@@ -1,15 +1,12 @@
 <body style="margin: 0; padding: 0; font-family: 'Oswald', sans-serif; font-weight: 500; line-height: 1.6; background: #e0e0e0;">
   <div style="padding: 0; background: #F1EFEC; border-radius: 12px; max-width: 600px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); overflow: hidden;">
-
     <!-- Header -->
     <div style="background: #7A1CAC; padding: 20px; text-align: center;">
       <h2 style="font-size: 26px; font-weight: 500; margin: 0; color: #ffffff;">📥 New Form Submission</h2>
     </div>
-
     <!-- Content -->
     <div style="padding: 30px; color: #000000;">
       <p style="margin-bottom: 20px;">You’ve received a new message from your website contact form.</p>
-
       <div>
         <h3 style="color: #7A1CAC; margin-bottom: 10px; font-size: 18px;">📝 Submission Details</h3>
         <ul style="list-style: none; padding: 0; margin: 0;">
@@ -18,11 +15,8 @@
           <li><strong>Message:</strong><br /> {{userMessage}}</li>
         </ul>
       </div>
-
       <hr style="border: 1px solid #ddd; margin: 40px 0;" />
-
       <p style="font-size: 0.9em; color: #555;">⏱️ Sent from your website on <strong>{{submissionTime}}</strong></p>
-
       <!-- Reply Action -->
       <div style="text-align: center; margin-top: 30px;">
         <a href="mailto:{{userEmail}}?subject=Reply to your message&body=Hi {{userName}},%0D%0A%0D%0AThanks for your message:%0D%0A%22{{userMessage}}%22%0D%0A%0D%0A— Tounga"
