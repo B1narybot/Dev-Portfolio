@@ -1,5 +1,4 @@
 // netlify/functions/mailer.js
-
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
@@ -27,12 +26,12 @@ exports.handler = async (event) => {
   // --- Load Templates ---
   const templatesDir = path.resolve(__dirname, 'Templates');
 
-  function loadTemplate(fileName) {
-    const filePath = path.join(templatesDir, fileName);
+  function loadTemplate(templateName) {
+    const templatePath = path.join(__dirname, 'Templates', templateName);
     try {
-      return fs.readFileSync(filePath, 'utf-8');
+      return fs.readFileSync(templatePath, 'utf8');
     } catch (error) {
-      console.error(`Error loading template ${fileName}:`, error);
+      console.error(`Error loading template ${templateName}:`, error);
       return '';
     }
   }
