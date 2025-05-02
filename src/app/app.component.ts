@@ -170,14 +170,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   submitForm(event: Event): void {
     event.preventDefault();
-
+  
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-
-    fetch('/', {
+  
+    fetch('/.netlify/functions/mailer', {
       method: 'POST',
-      headers: { 'Accept': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(<Record<string, string>>Object.fromEntries(formData as any))
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(formData as any))
     })
     .then(() => {
       this.showNotification('Message sent successfully!');
@@ -188,4 +188,5 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.showNotification('Something went wrong. Please try again later.');
     });
   }
+
 }
