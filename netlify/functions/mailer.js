@@ -25,7 +25,7 @@ exports.handler = async (event) => {
   const submissionTime = new Date().toLocaleString();
 
   // --- Load Templates ---
-  const templatesDir = path.resolve('netlify/functions/Templates');
+  const templatesDir = path.resolve(__dirname, 'Templates');
 
   function loadTemplate(fileName) {
     const filePath = path.join(templatesDir, fileName);

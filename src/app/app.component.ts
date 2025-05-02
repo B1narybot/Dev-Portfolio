@@ -10,7 +10,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   navOpen = false;
 
   progressValues = [0, 0, 0, 0, 0, 0];
-  finalValues = [89, 82, 78, 85, 78, 84];
+  finalValues = [91, 80, 85, 87, 78, 83];
 
   animateHeading = false;
   animateProgressBars = false;
