@@ -1,0 +1,50 @@
+<section id="contact-section" class="contact-section">
+  <div class="contact-container">
+    <div class="section-header">
+      <h2 class="section-title">Let's Work Together</h2>
+      <p class="section-subtitle">Start a conversation about your project</p>
+    </div>
+
+    <div class="contact-content">
+      <div class="contact-links">
+        <a *ngFor="let link of contactLinks" [href]="link.href" target="_blank" rel="noopener noreferrer" class="contact-link-card">
+          <span class="link-icon">{{ link.icon }}</span>
+          <div>
+            <p class="link-label">{{ link.label }}</p>
+            <p class="link-value">{{ link.value }}</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="contact-form-wrapper">
+        <div *ngIf="submitted" class="success-message">
+          <span>✓</span>
+          <p>Thanks for reaching out! I'll get back to you soon.</p>
+        </div>
+
+        <form *ngIf="!submitted" (submit)="submitForm()" class="contact-form">
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" [(ngModel)]="formData.name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" [(ngModel)]="formData.email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="Subject" [(ngModel)]="formData.subject" name="subject">
+          </div>
+
+          <div class="form-group">
+            <textarea placeholder="Your Message" [(ngModel)]="formData.message" name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" [disabled]="isLoading" class="submit-button">
+            {{ isLoading ? 'Sending...' : 'Send Message' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+

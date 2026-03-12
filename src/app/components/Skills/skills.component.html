@@ -1,0 +1,30 @@
+<section id="Skills-Section" class="skills-section">
+  <div class="skills-container">
+    <div class="section-header">
+      <h2 class="section-title">Technical Skills</h2>
+      <p class="section-subtitle">Tools, languages, and expertise</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-category" *ngFor="let category of skillCategories">
+        <div class="category-header">
+          <span class="category-icon">{{ category.icon }}</span>
+          <h3>{{ category.name }}</h3>
+        </div>
+
+        <div class="skills-list">
+          <div class="skill-item" *ngFor="let skill of category.skills">
+            <div class="skill-info">
+              <span class="skill-name">{{ skill.name }}</span>
+              <span class="skill-proficiency">{{ skill.proficiency }}%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" [style.width.%]="skill.proficiency"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

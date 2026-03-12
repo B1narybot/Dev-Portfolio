@@ -67,12 +67,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "angular-quickstart:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "angular-quickstart:build:production"
+              "buildTarget": "angular-quickstart:build:production"
             },
             "development": {
-              "browserTarget": "angular-quickstart:build:development"
+              "buildTarget": "angular-quickstart:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -102,6 +105,5 @@
         }
       }
     }
-  },
-  "defaultProject": "angular-quickstart"
+  }
 }

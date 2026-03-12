@@ -1,0 +1,37 @@
+<section id="hero" class="hero-section">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 [class.visible]="headlineVisible" class="hero-headline">
+        Tounga Saidou
+      </h1>
+      <h2 class="hero-title">Full Stack Engineer</h2>
+      
+      <p class="hero-subtitle">
+        <span class="typing-text">{{ displayedText }}<span class="cursor" [class.hidden]="isTypingComplete">|</span></span>
+      </p>
+
+      <p class="hero-description">
+        Architecting elegant, performant solutions that scale. Specializing in modern full-stack development, system design, and building products users love.
+      </p>
+
+      <div class="hero-cta-buttons">
+        <button class="cta-button primary" (click)="scrollToSection('work-section')">
+          View Projects
+        </button>
+        <button class="cta-button secondary" (click)="scrollToSection('contact-section')">
+          Get in Touch
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-glow"></div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+

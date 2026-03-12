@@ -1,0 +1,44 @@
+<section id="ai-section" class="ai-section">
+  <div class="ai-container">
+    <div class="section-header">
+      <h2 class="section-title">Smart Assistant</h2>
+      <p class="section-subtitle">Ask me anything about my work</p>
+    </div>
+
+    <div class="chatbot-demo">
+      <div class="chat-interface">
+        <div class="chat-messages">
+          <div *ngFor="let msg of chatMessages" class="chat-message" [class.user]="msg.type === 'user'">
+            <div class="message-bubble">{{ msg.text }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" placeholder="Ask about projects, skills, or architecture..." [(ngModel)]="userMessage" (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <div class="ai-features">
+      <div class="feature">
+        <span>💬</span>
+        <p>Ask questions about projects and experience</p>
+      </div>
+      <div class="feature">
+        <span>🔍</span>
+        <p>Get guided through portfolio sections</p>
+      </div>
+      <div class="feature">
+        <span>⚡</span>
+        <p>Instant answers about technical skills</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Chatbot Button -->
+  <button class="chatbot-button" (click)="toggleChatbot()" *ngIf="false">
+    <span>💬</span>
+  </button>
+</section>
+

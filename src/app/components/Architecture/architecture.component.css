@@ -1,0 +1,140 @@
+.architecture-section {
+  padding: 100px 40px;
+  position: relative;
+  z-index: 2;
+  background: rgba(10, 10, 10, 0.3);
+}
+
+.architecture-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 15px 0;
+  letter-spacing: -0.01em;
+  animation: fadeInDown 1s ease-out both;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: rgba(155, 77, 150, 0.8);
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+  animation: fadeInDown 1s ease-out 0.1s both;
+}
+
+.architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.architecture-card {
+  background: rgba(155, 77, 150, 0.05);
+  border: 1px solid rgba(155, 77, 150, 0.15);
+  border-radius: 12px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.architecture-card:nth-child(1) { animation-delay: 0.1s; }
+.architecture-card:nth-child(2) { animation-delay: 0.2s; }
+.architecture-card:nth-child(3) { animation-delay: 0.3s; }
+
+.architecture-card:hover {
+  background: rgba(155, 77, 150, 0.1);
+  border-color: rgba(155, 77, 150, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(155, 77, 150, 0.2);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.architecture-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.02em;
+}
+
+.architecture-item {
+  margin-bottom: 18px;
+}
+
+.architecture-item h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(155, 77, 150, 0.9);
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.architecture-item p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .architecture-section {
+    padding: 60px 20px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .architecture-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .architecture-card {
+    padding: 20px;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+}
+

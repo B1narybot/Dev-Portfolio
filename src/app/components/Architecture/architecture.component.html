@@ -1,0 +1,31 @@
+<section id="architecture-section" class="architecture-section">
+  <div class="architecture-container">
+    <div class="section-header">
+      <h2 class="section-title">System Architecture</h2>
+      <p class="section-subtitle">Engineering thinking demonstrated</p>
+    </div>
+
+    <div class="architecture-grid">
+      <div class="architecture-card" *ngFor="let example of architectureExamples">
+        <div class="card-icon">{{ example.icon }}</div>
+        <h3>{{ example.title }}</h3>
+
+        <div class="architecture-item">
+          <h4>Problem</h4>
+          <p>{{ example.problem }}</p>
+        </div>
+
+        <div class="architecture-item">
+          <h4>Solution</h4>
+          <p>{{ example.solution }}</p>
+        </div>
+
+        <div class="architecture-item">
+          <h4>Approach</h4>
+          <p>{{ example.approach }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,20 @@
+<!-- Navigation -->
+<nav class="navbar" [ngClass]="{'open': navOpen}">
+  <div class="navbar-header">
+    <div class="hamburger" (click)="toggleNav()" [ngClass]="{'open': navOpen}"></div>
+  </div>
+  <ul class="nav-links" [ngClass]="{'show': navOpen}">
+    <li><a (click)="scrollToSection('portfolio-section')">ABOUT <span class="arrow">➔</span></a></li>
+    <li><a (click)="scrollToSection('Skills-Section')">SKILLS <span class="arrow">➔</span></a></li>
+    <li><a (click)="scrollToSection('work-section')">WORK <span class="arrow">➔</span></a></li>
+    <!-- Logos for mobile dropdown menu -->
+    <div class="mobile-logos">
+      <img src="../../assets/icons8-phone-50.png" alt="Phone" class="logo">
+      <img src="../../assets/icons8-gmail-logo-50.png" alt="Gmail" class="logo">
+      <img src="../../assets/icons8-linkedin-50.png" alt="LinkedIn" class="logo">
+    </div>
+  </ul>
+  <div class="contact">
+    <a (click)="scrollToSection('contact-section')" class="contact-link">CONTACT ME</a>
+  </div>
+</nav>
