@@ -1,26 +1,28 @@
-<section id="Skills-Section" class="skills-section">
+<section id="Skills-Section" class="skills-section" appScrollReveal>
   <div class="skills-container">
     <div class="section-header">
-      <h2 class="section-title">Technical Skills</h2>
-      <p class="section-subtitle">Tools, languages, and expertise</p>
+      <h2 class="section-title">Technical Skills Network</h2>
+      <p class="section-subtitle">Neural graph of interconnected technologies</p>
     </div>
 
-    <div class="skills-grid">
-      <div class="skill-category" *ngFor="let category of skillCategories">
-        <div class="category-header">
-          <span class="category-icon">{{ category.icon }}</span>
-          <h3>{{ category.name }}</h3>
-        </div>
+    <!-- Neural Network Visualization -->
+    <app-neural-skills></app-neural-skills>
 
-        <div class="skills-list">
-          <div class="skill-item" *ngFor="let skill of category.skills">
-            <div class="skill-info">
-              <span class="skill-name">{{ skill.name }}</span>
-              <span class="skill-proficiency">{{ skill.proficiency }}%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" [style.width.%]="skill.proficiency"></div>
-            </div>
+    <!-- Engineering Metrics -->
+    <app-engineering-metrics></app-engineering-metrics>
+
+    <!-- Optional: Legacy Grid for Reference -->
+    <div class="skills-summary">
+      <h3>Skill Categories</h3>
+      <div class="summary-grid">
+        <div class="summary-card" *ngFor="let category of skillCategories">
+          <div class="summary-icon">{{ category.icon }}</div>
+          <h4>{{ category.name }}</h4>
+          <div class="skills-count">{{ category.skills.length }} technologies</div>
+          <div class="top-skills">
+            <span class="skill-tag" *ngFor="let skill of category.skills | slice:0:3">
+              {{ skill.name }}
+            </span>
           </div>
         </div>
       </div>

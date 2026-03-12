@@ -1,0 +1,210 @@
+/**
+ * Progressive Reveal Animations
+ * Staggered animations for data layers entering the viewport
+ */
+
+/* Section data container reveal animation */
+.data-layer-reveal {
+  animation: dataLayerReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes dataLayerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Staggered reveals for multiple elements */
+.data-item-reveal {
+  animation: dataItemReveal 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.data-item-reveal:nth-child(1) { animation-delay: 0.1s; }
+.data-item-reveal:nth-child(2) { animation-delay: 0.2s; }
+.data-item-reveal:nth-child(3) { animation-delay: 0.3s; }
+.data-item-reveal:nth-child(4) { animation-delay: 0.4s; }
+.data-item-reveal:nth-child(5) { animation-delay: 0.5s; }
+.data-item-reveal:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes dataItemReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Reveal animation for cards and panels */
+.reveal-card {
+  animation: revealCard 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes revealCard {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+/* Progressive line reveal for connections and dividers */
+.line-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.line-reveal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #00bfff, transparent);
+  animation: lineRevealAnimation 0.8s ease-out forwards;
+}
+
+@keyframes lineRevealAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Staggered grid reveal */
+.grid-reveal {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-reveal > * {
+  animation: gridItemReveal 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.grid-reveal > :nth-child(1) { animation-delay: 0.1s; }
+.grid-reveal > :nth-child(2) { animation-delay: 0.2s; }
+.grid-reveal > :nth-child(3) { animation-delay: 0.3s; }
+.grid-reveal > :nth-child(4) { animation-delay: 0.4s; }
+.grid-reveal > :nth-child(5) { animation-delay: 0.5s; }
+.grid-reveal > :nth-child(6) { animation-delay: 0.6s; }
+.grid-reveal > :nth-child(7) { animation-delay: 0.7s; }
+.grid-reveal > :nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes gridItemReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations if user prefers reduced motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .data-layer-reveal,
+  .data-item-reveal,
+  .reveal-card,
+  .grid-reveal > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Pulse animation for emphasis during reveal */
+.reveal-pulse {
+  animation: revealPulse 1s ease-in-out infinite;
+}
+
+@keyframes revealPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 191, 255, 0);
+  }
+}
+
+/* Connection glow effect during reveal */
+.connection-glow {
+  animation: connectionGlowReveal 1.5s ease-out forwards;
+}
+
+@keyframes connectionGlowReveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Info panel slide-in reveal */
+.panel-reveal {
+  animation: panelReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+@keyframes panelReveal {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Number counter animation for stats */
+.stat-counter {
+  font-variant-numeric: tabular-nums;
+  animation: statCounterReveal 0.8s ease-out forwards;
+}
+
+@keyframes statCounterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

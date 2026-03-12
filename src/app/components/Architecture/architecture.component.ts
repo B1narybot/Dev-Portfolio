@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 
 interface ArchitectureExample {
   title: string;
@@ -14,7 +15,7 @@ interface ArchitectureExample {
   templateUrl: './architecture.component.html',
   styleUrls: ['./architecture.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollRevealDirective],
 })
 export class ArchitectureComponent {
   architectureExamples: ArchitectureExample[] = [

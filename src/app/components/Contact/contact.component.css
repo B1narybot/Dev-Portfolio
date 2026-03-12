@@ -3,6 +3,14 @@
   padding: 120px 20px;
   background: linear-gradient(135deg, #0a0a0a 0%, #0a0a15 100%);
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.contact-section.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-container {

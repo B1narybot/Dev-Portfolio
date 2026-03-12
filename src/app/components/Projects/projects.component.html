@@ -1,31 +1,38 @@
-<section id="work-section" class="projects-section">
+<section id="work-section" class="projects-section" appScrollReveal>
   <div class="projects-container">
     <div class="section-header">
-      <h2 class="section-title">Featured Projects</h2>
-      <p class="section-subtitle">Real-world work showcase</p>
+      <h2 class="section-title">Project Network</h2>
+      <p class="section-subtitle">Interactive data visualization of engineering work</p>
     </div>
 
-    <div class="projects-grid">
-      <a *ngFor="let project of projects; let i = index"
-         class="project-card"
-         [href]="project.link"
-         target="_blank"
-         rel="noopener noreferrer"
-         [style.animation-delay.s]="i * 0.1">
-        <div class="project-image">
-          <img [src]="project.image || '/assets/gradient-01 2.png'" [alt]="project.name">
-        </div>
-        <div class="project-content">
-          <h3>{{ project.name }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-          <div class="project-tech">
-            <span class="tech-tag" *ngFor="let tech of project.tech">{{ tech }}</span>
+    <!-- Neural Projects Visualization -->
+    <app-neural-projects></app-neural-projects>
+
+    <!-- Project Cards Grid (Legacy View) -->
+    <div class="projects-legacy-section">
+      <h3>All Projects</h3>
+      <div class="projects-grid">
+        <a *ngFor="let project of projects; let i = index"
+           class="project-card"
+           [href]="project.link"
+           target="_blank"
+           rel="noopener noreferrer"
+           [style.animation-delay.s]="i * 0.1">
+          <div class="project-image">
+            <img [src]="project.image || '/assets/gradient-01 2.png'" [alt]="project.name">
           </div>
-          <div class="project-cta">
-            View Project →
+          <div class="project-content">
+            <h3>{{ project.name }}</h3>
+            <p class="project-description">{{ project.description }}</p>
+            <div class="project-tech">
+              <span class="tech-tag" *ngFor="let tech of project.tech">{{ tech }}</span>
+            </div>
+            <div class="project-cta">
+              View Project →
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </section>
