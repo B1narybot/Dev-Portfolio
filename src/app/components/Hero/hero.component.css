@@ -7,6 +7,14 @@
   padding: 40px;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.hero-section.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-content {
@@ -150,6 +158,67 @@
   animation: fadeInRight 1.2s ease-out 0.3s both;
 }
 
+.portrait-container {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 
+    0 0 40px rgba(155, 77, 150, 0.4),
+    0 20px 60px rgba(0, 191, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(155, 77, 150, 0.2);
+  animation: fadeInScale 1s ease-out 0.5s both;
+  transition: all 0.3s ease;
+}
+
+.portrait-image:hover {
+  box-shadow: 
+    0 0 60px rgba(155, 77, 150, 0.6),
+    0 30px 80px rgba(0, 191, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.portrait-glow {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(155, 77, 150, 0.2), transparent 70%);
+  filter: blur(20px);
+  animation: glowPulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .hero-glow {
   width: 300px;
   height: 300px;
@@ -157,6 +226,8 @@
   background: radial-gradient(circle, rgba(155, 77, 150, 0.3) 0%, transparent 70%);
   filter: blur(40px);
   animation: float 6s ease-in-out infinite;
+  position: absolute;
+  z-index: -1;
 }
 
 @keyframes float {
@@ -243,6 +314,26 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .hero-content {
+    gap: 40px;
+  }
+
+  .portrait-container {
+    width: 240px;
+    height: 320px;
+  }
+
+  .hero-visual {
+    height: 350px;
+  }
+
+  .hero-glow {
+    width: 250px;
+    height: 250px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-section {
     padding: 20px;
@@ -275,12 +366,83 @@
   }
 
   .hero-visual {
-    height: 250px;
+    height: 320px;
+    order: -1;
+  }
+
+  .portrait-container {
+    width: 220px;
+    height: 300px;
   }
 
   .hero-glow {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: auto;
+    padding: 20px;
+    padding-top: 40px;
+  }
+
+  .hero-content {
+    gap: 30px;
+  }
+
+  .hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    margin: 20px 0 30px 0;
+  }
+
+  .hero-visual {
+    height: 280px;
+  }
+
+  .portrait-container {
+    width: 180px;
+    height: 250px;
+  }
+
+  .portrait-image {
+    border-radius: 12px;
+  }
+
+  .portrait-glow {
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 15px;
+  }
+
+  .hero-glow {
+    width: 180px;
+    height: 180px;
+  }
+
+  .cta-button {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .scroll-indicator {
+    bottom: 20px;
   }
 }
 

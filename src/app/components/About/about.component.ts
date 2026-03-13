@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 
 interface PhilosophyItem {
   icon: string;
@@ -12,7 +13,7 @@ interface PhilosophyItem {
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollRevealDirective],
 })
 export class AboutComponent {
   philosophyItems: PhilosophyItem[] = [

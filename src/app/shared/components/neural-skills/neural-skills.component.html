@@ -1,0 +1,67 @@
+<div class="neural-skills-container data-layer-reveal">
+  <div class="neural-canvas-wrapper">
+    <canvas 
+      #skillsCanvas 
+      class="neural-canvas"
+      (mousemove)="onCanvasMouseMove($event)"
+      (click)="onCanvasClick($event)">
+    </canvas>
+    
+    <!-- Skill Detail Panel -->
+    <div *ngIf="selectedSkillDetail" class="skill-detail-panel" [@slideIn]>
+      <div class="detail-header">
+        <h3>{{ selectedSkillDetail.node.name }}</h3>
+        <button class="close-btn" (click)="closeDetails()">✕</button>
+      </div>
+
+      <div class="detail-content">
+        <div class="proficiency-section">
+          <div class="proficiency-label">Proficiency</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" [style.width.%]="selectedSkillDetail.node.proficiency"></div>
+          </div>
+          <div class="proficiency-value">{{ selectedSkillDetail.node.proficiency }}%</div>
+        </div>
+
+        <div class="category-section">
+          <div class="category-label">Category</div>
+          <div class="category-value">{{ selectedSkillDetail.node.category }}</div>
+        </div>
+
+        <div *ngIf="selectedSkillDetail.relatedSkills.length > 0" class="related-section">
+          <div class="related-label">Related Skills</div>
+          <div class="related-tags">
+            <span *ngFor="let relatedId of selectedSkillDetail.relatedSkills" class="tag">
+              {{ (skills | filter: relatedId)[0]?.name || relatedId }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cluster Legend -->
+    <div class="cluster-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="border-color: #00bfff;"></div>
+        <span>Frontend</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="border-color: #9b4d96;"></div>
+        <span>Backend</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="border-color: #00bfff;"></div>
+        <span>Data & Infrastructure</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="border-color: #9b4d96;"></div>
+        <span>AI / Automation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="neural-instructions">
+    <p>💡 Hover over nodes to explore connections. Click to view details.</p>
+  </div>
+</div>

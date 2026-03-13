@@ -1,0 +1,74 @@
+<div class="neural-projects-container data-layer-reveal">
+  <div class="neural-canvas-wrapper">
+    <canvas
+      #projectsCanvas
+      class="neural-canvas"
+      (mousemove)="onCanvasMouseMove($event)"
+      (click)="onCanvasClick($event)">
+    </canvas>
+
+    <!-- Project Detail Panel -->
+    <div *ngIf="selectedProjectDetail" class="project-detail-panel">
+      <div class="detail-header">
+        <h3>{{ selectedProjectDetail.node.name }}</h3>
+        <button class="close-btn" (click)="closeDetails()">✕</button>
+      </div>
+
+      <div class="detail-content">
+        <p class="project-description">{{ selectedProjectDetail.node.description }}</p>
+
+        <div class="metrics-section">
+          <div class="metric">
+            <span class="metric-label">Complexity</span>
+            <div class="metric-bars">
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.complexity"></span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Impact</span>
+            <div class="metric-bars">
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.impact"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="technologies-section">
+          <div class="section-label">Technologies Used</div>
+          <div class="tech-tags">
+            <span class="tech-tag" *ngFor="let tech of selectedProjectDetail.relatedTechs">
+              {{ tech }}
+            </span>
+          </div>
+        </div>
+
+        <div class="action-section">
+          <a [href]="selectedProjectDetail.node.link" target="_blank" rel="noopener noreferrer" class="view-project-btn">
+            View Project →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connection Legend -->
+    <div class="connection-legend">
+      <div class="legend-title">Connection Types</div>
+      <div class="legend-item">
+        <div class="legend-line tech"></div>
+        <span>Technology</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-line pattern"></div>
+        <span>Architecture</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-line domain"></div>
+        <span>Domain</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="neural-instructions">
+    <p>✨ Hover over project nodes to explore connections. Click to view details and visit projects.</p>
+  </div>
+</div>

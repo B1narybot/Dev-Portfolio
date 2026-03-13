@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { NeuralProjectsComponent } from '../../shared/components/neural-projects/neural-projects.component';
 
 interface Project {
   id: number;
@@ -16,7 +18,7 @@ interface Project {
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollRevealDirective, NeuralProjectsComponent],
 })
 export class ProjectsComponent {
   projects: Project[] = [

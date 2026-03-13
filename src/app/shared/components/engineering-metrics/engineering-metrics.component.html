@@ -1,0 +1,63 @@
+<div class="engineering-metrics-container data-layer-reveal">
+  <div class="metrics-header">
+    <h2>Engineering Metrics</h2>
+    <p>System performance indicators and architecture analysis</p>
+  </div>
+
+  <div class="metrics-content">
+    <!-- Canvas for Charts -->
+    <div class="charts-section">
+      <canvas #metricsCanvas class="metrics-canvas"></canvas>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">{{ projectMetrics.totalProjects }}</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🛠️</div>
+        <div class="stat-value">{{ projectMetrics.totalTechnologies }}</div>
+        <div class="stat-label">Technologies</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⚙️</div>
+        <div class="stat-value">{{ projectMetrics.avgComplexity.toFixed(1) }}</div>
+        <div class="stat-label">Avg Complexity</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value">{{ projectMetrics.avgImpact.toFixed(1) }}</div>
+        <div class="stat-label">Avg Impact</div>
+      </div>
+    </div>
+
+    <!-- Quick Insights -->
+    <div class="insights-section">
+      <h3>Quick Insights</h3>
+      <div class="insights-grid">
+        <div class="insight">
+          <span class="insight-icon">✔</span>
+          <p>Full-stack expertise spanning frontend, backend, and DevOps</p>
+        </div>
+        <div class="insight">
+          <span class="insight-icon">✔</span>
+          <p>Specialized in scalable enterprise systems and performance optimization</p>
+        </div>
+        <div class="insight">
+          <span class="insight-icon">✔</span>
+          <p>Strong foundation in system design and architectural patterns</p>
+        </div>
+        <div class="insight">
+          <span class="insight-icon">✔</span>
+          <p>Experience with AI integration and automation workflows</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
