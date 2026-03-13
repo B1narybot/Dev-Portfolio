@@ -6,8 +6,9 @@ export interface ProjectNode {
   link: string;
   image?: string;
   category: string;
-  complexity: number; // 1-5
-  impact: number; // 1-5
+  type: 'root' | 'branch' | 'project';
+  complexity?: number; // 1-5
+  impact?: number; // 1-5
   x?: number;
   y?: number;
   vx?: number;
@@ -22,46 +23,126 @@ export interface ProjectConnection {
 }
 
 export const PROJECT_NODES: ProjectNode[] = [
+  // Root Node
+  {
+    id: 'root-projects',
+    name: 'Projects',
+    description: 'Collection of professional projects',
+    technologies: [],
+    link: '',
+    category: 'Root',
+    type: 'root',
+    complexity: 5,
+    impact: 5,
+    x: 0,
+    y: 0,
+  },
+
+  // Branch: Web Applications
+  {
+    id: 'branch-web-apps',
+    name: 'Web Apps',
+    description: 'Modern web applications and platforms',
+    technologies: [],
+    link: '',
+    category: 'Web',
+    type: 'branch',
+    complexity: 0,
+    impact: 0,
+  },
+
+  // Branch: AI Projects
+  {
+    id: 'branch-ai-projects',
+    name: 'AI Projects',
+    description: 'AI-powered solutions and integrations',
+    technologies: [],
+    link: '',
+    category: 'AI',
+    type: 'branch',
+    complexity: 0,
+    impact: 0,
+  },
+
+  // Branch: Dashboards
+  {
+    id: 'branch-dashboards',
+    name: 'Dashboards',
+    description: 'Analytics and data visualization',
+    technologies: [],
+    link: '',
+    category: 'Analytics',
+    type: 'branch',
+    complexity: 0,
+    impact: 0,
+  },
+
+  // Branch: Tools & Utilities
+  {
+    id: 'branch-tools',
+    name: 'Tools & Utilities',
+    description: 'Useful tools and utilities',
+    technologies: [],
+    link: '',
+    category: 'Tools',
+    type: 'branch',
+    complexity: 0,
+    impact: 0,
+  },
+
+  // Projects: Web Applications
   {
     id: 'august-solutions',
     name: 'August Integrated Solutions',
     description: 'Enterprise business solutions platform with custom workflows, scalable architecture, and seamless data integration.',
     technologies: ['Angular', 'Node.js', 'Express.js', 'PostgreSQL', 'TypeScript'],
     link: 'https://augustintegrated.co.za/',
-    category: 'Enterprise',
+    category: 'Web',
+    type: 'project',
     complexity: 5,
     impact: 5,
   },
+
   {
     id: 'global-master',
     name: 'Global Master',
     description: 'Modern agency website built with React. Clean, responsive design emphasizing functionality and beautiful user interface.',
     technologies: ['React', 'TypeScript', 'CSS/SCSS', 'Responsive Design'],
     link: 'https://global-master.netlify.app/',
-    category: 'Web Design',
+    category: 'Web',
+    type: 'project',
     complexity: 3,
     impact: 4,
   },
+
   {
     id: 'bright-group',
     name: 'Bright Group LTD',
     description: 'Premium technology solutions provider website. Professional platform showcasing services and building client trust.',
     technologies: ['Web Design', 'Performance Optimization', 'SEO', 'Responsive'],
     link: 'https://brightgroupltd.com/',
-    category: 'Marketing',
+    category: 'Web',
+    type: 'project',
     complexity: 2,
     impact: 3,
   },
 ];
 
 export const PROJECT_CONNECTIONS: ProjectConnection[] = [
-  // August & Global Master - both use TypeScript and modern frameworks
+  // Root to branches
+  { source: 'root-projects', target: 'branch-web-apps', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'branch-ai-projects', type: 'domain', strength: 0.9 },
+  { source: 'root-projects', target: 'branch-dashboards', type: 'domain', strength: 0.85 },
+  { source: 'root-projects', target: 'branch-tools', type: 'domain', strength: 0.8 },
+
+  // Web Apps branch to projects
+  { source: 'branch-web-apps', target: 'august-solutions', type: 'domain', strength: 0.95 },
+  { source: 'branch-web-apps', target: 'global-master', type: 'domain', strength: 0.95 },
+  { source: 'branch-web-apps', target: 'bright-group', type: 'domain', strength: 0.95 },
+
+  // Project interconnections
   { source: 'august-solutions', target: 'global-master', type: 'technology', strength: 0.8 },
-  
-  // August & Bright Group - both performance focused
   { source: 'august-solutions', target: 'bright-group', type: 'pattern', strength: 0.6 },
-  
-  // Global Master & Bright Group - both web design focused
   { source: 'global-master', target: 'bright-group', type: 'domain', strength: 0.7 },
 ];
 

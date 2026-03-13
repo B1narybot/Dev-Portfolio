@@ -2,7 +2,7 @@
   padding: 100px 40px;
   position: relative;
   z-index: 2;
-  background: rgba(10, 10, 10, 0.4);
+  background: transparent;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -27,19 +27,16 @@
   font-size: 2.5rem;
   font-weight: 700;
   color: white;
-  margin: 0 0 15px 0;
+  margin: 0 0 12px 0;
   letter-spacing: -0.01em;
-  animation: fadeInDown 1s ease-out both;
 }
 
 .section-subtitle {
-  font-size: 1.1rem;
-  color: rgba(155, 77, 150, 0.8);
+  font-size: 1rem;
+  color: rgba(155, 77, 150, 0.85);
   margin: 0;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
   font-weight: 500;
-  animation: fadeInDown 1s ease-out 0.1s both;
 }
 
 .skills-grid {
@@ -214,10 +211,7 @@
 
 /* Skills Summary Section */
 .skills-summary {
-  margin-top: 60px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(155, 77, 150, 0.2);
-  animation: fadeInUp 0.8s ease-out 0.5s both;
+  display: none;
 }
 
 .skills-summary h3 {

@@ -21,13 +21,13 @@
           <div class="metric">
             <span class="metric-label">Complexity</span>
             <div class="metric-bars">
-              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.complexity"></span>
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= (selectedProjectDetail.node.complexity || 0)"></span>
             </div>
           </div>
           <div class="metric">
             <span class="metric-label">Impact</span>
             <div class="metric-bars">
-              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.impact"></span>
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= (selectedProjectDetail.node.impact || 0)"></span>
             </div>
           </div>
         </div>

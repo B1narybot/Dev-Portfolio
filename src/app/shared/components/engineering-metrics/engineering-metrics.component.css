@@ -20,10 +20,9 @@
 
 .metrics-header p {
   font-size: 1rem;
-  color: rgba(155, 77, 150, 0.8);
+  color: rgba(155, 77, 150, 0.85);
   margin: 0;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   font-weight: 500;
 }
 
@@ -35,8 +34,8 @@
 
 /* Charts Section */
 .charts-section {
-  background: rgba(10, 10, 10, 0.5);
-  border: 1px solid rgba(0, 191, 255, 0.15);
+  background: transparent;
+  border: none;
   border-radius: 12px;
   padding: 30px;
   animation: fadeInUp 0.8s ease-out 0.2s both;
@@ -46,6 +45,7 @@
   display: block;
   width: 100%;
   height: auto;
+  mix-blend-mode: screen;
 }
 
 /* Stats Grid */
@@ -57,41 +57,41 @@
 }
 
 .stat-card {
-  background: linear-gradient(135deg, rgba(0, 191, 255, 0.08), rgba(155, 77, 150, 0.08));
-  border: 1px solid rgba(0, 191, 255, 0.15);
-  border-radius: 10px;
-  padding: 28px;
+  background: rgba(0, 191, 255, 0.04);
+  border: 1px solid rgba(155, 77, 150, 0.1);
+  border-radius: 8px;
+  padding: 24px;
   text-align: center;
   transition: all 0.3s ease;
   cursor: pointer;
+  backdrop-filter: blur(5px);
 }
 
 .stat-card:hover {
-  background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(155, 77, 150, 0.15));
-  border-color: rgba(0, 191, 255, 0.3);
-  transform: translateY(-5px);
+  background: rgba(155, 77, 150, 0.08);
+  border-color: rgba(155, 77, 150, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(155, 77, 150, 0.1);
 }
 
 .stat-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
 }
 
 .stat-value {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   color: white;
-  margin: 0 0 8px 0;
-  background: linear-gradient(135deg, #00bfff, #9b4d96);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
 }
 
 .stat-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 /* Insights Section */

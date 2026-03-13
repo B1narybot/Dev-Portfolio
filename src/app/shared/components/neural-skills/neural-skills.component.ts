@@ -55,17 +55,32 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initializeSkillPositions(): void {
-    const clusterRadius = 120;
+    const centerX = this.canvas ? this.canvas.width / 2 : 500;
+    const centerY = this.canvas ? this.canvas.height / 2 : 350;
 
+    const rootSkill = this.skills.find(s => s.id === 'root-engineering');
+    if (rootSkill) {
+      rootSkill.x = centerX;
+      rootSkill.y = centerY;
+      rootSkill.vx = 0;
+      rootSkill.vy = 0;
+    }
+
+    const branchRadius = 100;
     this.skills.forEach((skill) => {
-      const clusterPos = CLUSTER_POSITIONS[skill.cluster];
+      if (skill.id === 'root-engineering') return;
+      
+      const clusterOffset = CLUSTER_POSITIONS[skill.cluster];
+      const clusterX = centerX + clusterOffset.offsetX;
+      const clusterY = centerY + clusterOffset.offsetY;
+      
       const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * clusterRadius;
+      const distance = Math.random() * branchRadius * 0.5 + branchRadius * 0.2;
 
-      skill.x = clusterPos.cx + Math.cos(angle) * distance;
-      skill.y = clusterPos.cy + Math.sin(angle) * distance;
-      skill.vx = (Math.random() - 0.5) * 2;
-      skill.vy = (Math.random() - 0.5) * 2;
+      skill.x = clusterX + Math.cos(angle) * distance;
+      skill.y = clusterY + Math.sin(angle) * distance;
+      skill.vx = (Math.random() - 0.5) * 0.3;
+      skill.vy = (Math.random() - 0.5) * 0.3;
     });
   }
 
@@ -86,9 +101,8 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
     // Update reveal progress
     this.revealManager.update(16.667);
 
-    // Clear canvas
-    this.ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // Clear canvas completely to show background
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Draw connections
     this.drawConnections();
@@ -104,20 +118,27 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   private updatePhysics(): void {
-    const friction = 0.95;
-    const clusterForce = 0.08;
-    const repulsion = 300;
+    const friction = 0.93;
+    const clusterForce = 0.10;
+    const repulsion = 280;
+    
+    const centerX = this.canvas.width / 2;
+    const centerY = this.canvas.height / 2;
 
     this.skills.forEach((skill) => {
-      const clusterPos = CLUSTER_POSITIONS[skill.cluster];
+      const clusterOffset = CLUSTER_POSITIONS[skill.cluster];
+      const clusterX = centerX + clusterOffset.offsetX;
+      const clusterY = centerY + clusterOffset.offsetY;
 
       // Attraction to cluster center
-      const dx = clusterPos.cx - skill.x!;
-      const dy = clusterPos.cy - skill.y!;
+      const dx = clusterX - skill.x!;
+      const dy = clusterY - skill.y!;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      skill.vx! += (dx / distance) * clusterForce;
-      skill.vy! += (dy / distance) * clusterForce;
+      if (distance > 2) {
+        skill.vx! += (dx / distance) * clusterForce;
+        skill.vy! += (dy / distance) * clusterForce;
+      }
 
       // Repulsion from other nodes
       this.skills.forEach((other) => {
@@ -128,25 +149,45 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
         const rdist = Math.sqrt(rdx * rdx + rdy * rdy) + 1;
 
         if (rdist < repulsion) {
-          const force = (repulsion - rdist) / repulsion * 0.5;
+          const force = (repulsion - rdist) / repulsion * 0.4;
           skill.vx! += (rdx / rdist) * force;
           skill.vy! += (rdy / rdist) * force;
         }
       });
 
-      // Apply velocity
+      // Apply velocity with damping
       skill.vx! *= friction;
       skill.vy! *= friction;
+
+      // Limit velocity for stability
+      const maxVelocity = 2;
+      const vel = Math.sqrt(skill.vx! * skill.vx! + skill.vy! * skill.vy!);
+      if (vel > maxVelocity) {
+        skill.vx! = (skill.vx! / vel) * maxVelocity;
+        skill.vy! = (skill.vy! / vel) * maxVelocity;
+      }
 
       skill.x! += skill.vx!;
       skill.y! += skill.vy!;
 
-      // Boundary constraints
-      const padding = 40;
-      if (skill.x! < padding) skill.x = padding;
-      if (skill.x! > this.canvas.width - padding) skill.x = this.canvas.width - padding;
-      if (skill.y! < padding) skill.y = padding;
-      if (skill.y! > this.canvas.height - padding) skill.y = this.canvas.height - padding;
+      // Soft boundary constraints with bounce
+      const padding = 60;
+      if (skill.x! < padding) {
+        skill.x = padding;
+        skill.vx! *= -0.3;
+      }
+      if (skill.x! > this.canvas.width - padding) {
+        skill.x = this.canvas.width - padding;
+        skill.vx! *= -0.3;
+      }
+      if (skill.y! < padding) {
+        skill.y = padding;
+        skill.vy! *= -0.3;
+      }
+      if (skill.y! > this.canvas.height - padding) {
+        skill.y = this.canvas.height - padding;
+        skill.vy! *= -0.3;
+      }
     });
   }
 
@@ -157,17 +198,32 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (!source || !target) return;
 
+      const isSourceHovered = this.hoveredSkillId === conn.source;
+      const isTargetHovered = this.hoveredSkillId === conn.target;
+      const isSourceSelected = this.selectedSkillId === conn.source;
+      const isTargetSelected = this.selectedSkillId === conn.target;
       const isRelated = 
-        this.hoveredSkillId === conn.source || 
-        this.hoveredSkillId === conn.target ||
-        this.selectedSkillId === conn.source ||
-        this.selectedSkillId === conn.target;
+        (this.hoveredSkillId && 
+          (this.relatedSkills.includes(conn.source) || this.relatedSkills.includes(conn.target)));
 
-      const opacity = isRelated ? 0.6 : 0.15;
-      const width = isRelated ? 2 : 1;
+      let opacity = 0.1;
+      let width = 0.8;
+
+      if (isSourceHovered || isTargetHovered) {
+        opacity = 0.5;
+        width = 1.5;
+      } else if (isSourceSelected || isTargetSelected) {
+        opacity = 0.4;
+        width = 1.3;
+      } else if (isRelated) {
+        opacity = 0.2;
+        width = 1;
+      }
 
       this.ctx.strokeStyle = `rgba(155, 77, 150, ${opacity})`;
       this.ctx.lineWidth = width;
+      this.ctx.lineCap = 'round';
+      this.ctx.lineJoin = 'round';
       this.ctx.beginPath();
       this.ctx.moveTo(source.x!, source.y!);
       this.ctx.lineTo(target.x!, target.y!);
@@ -177,7 +233,8 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private drawNodes(): void {
     this.skills.forEach((skill) => {
-      const radius = 24;
+      const isRoot = skill.id === 'root-engineering';
+      const baseRadius = isRoot ? 20 : 14;
       const isSelected = this.selectedSkillId === skill.id;
       const isHovered = this.hoveredSkillId === skill.id;
       const isRelated = this.relatedSkills.includes(skill.id);
@@ -186,40 +243,67 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
       const revealScale = this.revealManager.getNodeScale(skill.id);
       const revealOpacity = this.revealManager.getNodeOpacity(skill.id);
 
-      // Calculate glow scale with reveal
-      const glowScale = (isHovered ? 1.5 : isRelated ? 1.2 : 1) * revealScale;
+      // Calculate glow with subtle scaling
+      const glowScale = (isHovered ? 1.4 : isRelated ? 1.15 : 1) * revealScale;
 
-      // Draw glow
-      const gradient = this.ctx.createRadialGradient(
-        skill.x!, skill.y!, 0,
-        skill.x!, skill.y!, radius * glowScale
-      );
+      // Draw refined glow for non-root nodes
+      if (!isRoot) {
+        const gradient = this.ctx.createRadialGradient(
+          skill.x!, skill.y!, 0,
+          skill.x!, skill.y!, baseRadius * glowScale * 1.5
+        );
 
-      const clusterColor = CLUSTER_COLORS[skill.cluster];
-      gradient.addColorStop(0, `${clusterColor}${Math.round(0x40 * revealOpacity).toString(16).padStart(2, '0')}`);
-      gradient.addColorStop(1, `${clusterColor}00`);
+        const clusterColor = CLUSTER_COLORS[skill.cluster];
+        const glowAlpha = Math.round(0x20 * revealOpacity).toString(16).padStart(2, '0');
+        gradient.addColorStop(0, `${clusterColor}${glowAlpha}`);
+        gradient.addColorStop(1, `${clusterColor}00`);
 
-      this.ctx.fillStyle = gradient;
-      this.ctx.beginPath();
-      this.ctx.arc(skill.x!, skill.y!, radius * glowScale, 0, Math.PI * 2);
-      this.ctx.fill();
+        this.ctx.fillStyle = gradient;
+        this.ctx.beginPath();
+        this.ctx.arc(skill.x!, skill.y!, baseRadius * glowScale * 1.5, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
 
-      // Draw node circle with reveal opacity
+      // Draw node circle with refined styling
       const nodeOpacity = Math.round(0xff * revealOpacity).toString(16).padStart(2, '0');
-      this.ctx.fillStyle = (isSelected ? clusterColor : isHovered ? clusterColor : '#1a1a2e') + nodeOpacity;
+      const clusterColor = CLUSTER_COLORS[skill.cluster];
+      
+      // Dark background for node
+      this.ctx.fillStyle = '#0a0a1a' + nodeOpacity;
       this.ctx.strokeStyle = clusterColor + nodeOpacity;
-      this.ctx.lineWidth = (isSelected ? 3 : isHovered ? 2 : 1.5) * revealScale;
+      this.ctx.lineWidth = (isSelected ? 2.5 : isHovered ? 2 : 1.2) * revealScale;
+      
       this.ctx.beginPath();
-      this.ctx.arc(skill.x!, skill.y!, radius * revealScale, 0, Math.PI * 2);
+      this.ctx.arc(skill.x!, skill.y!, baseRadius * revealScale, 0, Math.PI * 2);
       this.ctx.fill();
       this.ctx.stroke();
 
-      // Draw proficiency indicator
-      const proficiencyOpacity = skill.proficiency / 100 * revealOpacity;
-      this.ctx.fillStyle = `${clusterColor}${Math.round(proficiencyOpacity * 255).toString(16).padStart(2, '0')}`;
-      this.ctx.beginPath();
-      this.ctx.arc(skill.x!, skill.y! - radius * revealScale - 10, 4 * revealScale, 0, Math.PI * 2);
-      this.ctx.fill();
+      // Optional: Add subtle inner ring for root
+      if (isRoot) {
+        this.ctx.strokeStyle = clusterColor + Math.round(0x60 * revealOpacity).toString(16).padStart(2, '0');
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.arc(skill.x!, skill.y!, baseRadius * revealScale * 0.6, 0, Math.PI * 2);
+        this.ctx.stroke();
+      }
+
+      // Add subtle proficiency indicator as small dot
+      if (!isRoot) {
+        const proficiencyOpacity = skill.proficiency / 100 * revealOpacity;
+        const indicatorAlpha = Math.round(proficiencyOpacity * 180).toString(16).padStart(2, '0');
+        this.ctx.fillStyle = clusterColor + indicatorAlpha;
+        this.ctx.beginPath();
+        const indicatorRadius = 3 * revealScale;
+        const indicatorDist = baseRadius * revealScale + indicatorRadius + 4;
+        this.ctx.arc(
+          skill.x! + indicatorDist * Math.cos(-Math.PI / 4),
+          skill.y! + indicatorDist * Math.sin(-Math.PI / 4),
+          indicatorRadius,
+          0,
+          Math.PI * 2
+        );
+        this.ctx.fill();
+      }
     });
   }
 
@@ -234,8 +318,10 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
       const dx = x - skill.x!;
       const dy = y - skill.y!;
       const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      const hitRadius = skill.id === 'root-engineering' ? 28 : 22;
 
-      if (distance < 30) {
+      if (distance < hitRadius) {
         hovered = skill.id;
         break;
       }
@@ -247,11 +333,11 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (skill) {
         const clusterColor = CLUSTER_COLORS[skill.cluster];
         this.particleSystem.emit(skill.x!, skill.y!, {
-          count: 12,
-          speed: 1.5,
-          size: 2,
+          count: 8,
+          speed: 1.2,
+          size: 1.5,
           color: clusterColor,
-          life: 800,
+          life: 600,
           spread: 360,
         });
       }
@@ -278,8 +364,10 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
       const dx = x - skill.x!;
       const dy = y - skill.y!;
       const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      const hitRadius = skill.id === 'root-engineering' ? 28 : 22;
 
-      if (distance < 30) {
+      if (distance < hitRadius) {
         this.selectedSkillId = skill.id;
         this.showSkillDetails(skill);
         this.updateRelatedSkills(skill.id);
@@ -287,11 +375,11 @@ export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
         // Emit particles on click
         const clusterColor = CLUSTER_COLORS[skill.cluster];
         this.particleSystem.emit(skill.x!, skill.y!, {
-          count: 20,
-          speed: 2.5,
-          size: 3,
+          count: 15,
+          speed: 2,
+          size: 2,
           color: clusterColor,
-          life: 1000,
+          life: 800,
           spread: 360,
         });
         
