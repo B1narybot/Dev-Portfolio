@@ -23,10 +23,10 @@ export interface ProjectConnection {
 }
 
 export const PROJECT_NODES: ProjectNode[] = [
-  // Root Node
+  // Root Node - Center
   {
     id: 'root-projects',
-    name: 'Projects',
+    name: 'Featured Work',
     description: 'Collection of professional projects',
     technologies: [],
     link: '',
@@ -38,62 +38,10 @@ export const PROJECT_NODES: ProjectNode[] = [
     y: 0,
   },
 
-  // Branch: Web Applications
-  {
-    id: 'branch-web-apps',
-    name: 'Web Apps',
-    description: 'Modern web applications and platforms',
-    technologies: [],
-    link: '',
-    category: 'Web',
-    type: 'branch',
-    complexity: 0,
-    impact: 0,
-  },
-
-  // Branch: AI Projects
-  {
-    id: 'branch-ai-projects',
-    name: 'AI Projects',
-    description: 'AI-powered solutions and integrations',
-    technologies: [],
-    link: '',
-    category: 'AI',
-    type: 'branch',
-    complexity: 0,
-    impact: 0,
-  },
-
-  // Branch: Dashboards
-  {
-    id: 'branch-dashboards',
-    name: 'Dashboards',
-    description: 'Analytics and data visualization',
-    technologies: [],
-    link: '',
-    category: 'Analytics',
-    type: 'branch',
-    complexity: 0,
-    impact: 0,
-  },
-
-  // Branch: Tools & Utilities
-  {
-    id: 'branch-tools',
-    name: 'Tools & Utilities',
-    description: 'Useful tools and utilities',
-    technologies: [],
-    link: '',
-    category: 'Tools',
-    type: 'branch',
-    complexity: 0,
-    impact: 0,
-  },
-
-  // Projects: Web Applications
+  // Projects: Left side (odd indices)
   {
     id: 'august-solutions',
-    name: 'August Integrated Solutions',
+    name: 'August Solutions',
     description: 'Enterprise business solutions platform with custom workflows, scalable architecture, and seamless data integration.',
     technologies: ['Angular', 'Node.js', 'Express.js', 'PostgreSQL', 'TypeScript'],
     link: 'https://augustintegrated.co.za/',
@@ -103,10 +51,11 @@ export const PROJECT_NODES: ProjectNode[] = [
     impact: 5,
   },
 
+  // Projects: Right side (even indices)
   {
     id: 'global-master',
     name: 'Global Master',
-    description: 'Modern agency website built with React. Clean, responsive design emphasizing functionality and beautiful user interface.',
+    description: 'Modern agency website. Clean, responsive design emphasizing functionality and beautiful user interface.',
     technologies: ['React', 'TypeScript', 'CSS/SCSS', 'Responsive Design'],
     link: 'https://global-master.netlify.app/',
     category: 'Web',
@@ -115,9 +64,10 @@ export const PROJECT_NODES: ProjectNode[] = [
     impact: 4,
   },
 
+  // Projects: Left side
   {
     id: 'bright-group',
-    name: 'Bright Group LTD',
+    name: 'Bright Group',
     description: 'Premium technology solutions provider website. Professional platform showcasing services and building client trust.',
     technologies: ['Web Design', 'Performance Optimization', 'SEO', 'Responsive'],
     link: 'https://brightgroupltd.com/',
@@ -129,21 +79,15 @@ export const PROJECT_NODES: ProjectNode[] = [
 ];
 
 export const PROJECT_CONNECTIONS: ProjectConnection[] = [
-  // Root to branches
-  { source: 'root-projects', target: 'branch-web-apps', type: 'domain', strength: 0.95 },
-  { source: 'root-projects', target: 'branch-ai-projects', type: 'domain', strength: 0.9 },
-  { source: 'root-projects', target: 'branch-dashboards', type: 'domain', strength: 0.85 },
-  { source: 'root-projects', target: 'branch-tools', type: 'domain', strength: 0.8 },
-
-  // Web Apps branch to projects
-  { source: 'branch-web-apps', target: 'august-solutions', type: 'domain', strength: 0.95 },
-  { source: 'branch-web-apps', target: 'global-master', type: 'domain', strength: 0.95 },
-  { source: 'branch-web-apps', target: 'bright-group', type: 'domain', strength: 0.95 },
+  // Root to projects
+  { source: 'root-projects', target: 'august-solutions', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'global-master', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'bright-group', type: 'domain', strength: 0.95 },
 
   // Project interconnections
-  { source: 'august-solutions', target: 'global-master', type: 'technology', strength: 0.8 },
-  { source: 'august-solutions', target: 'bright-group', type: 'pattern', strength: 0.6 },
-  { source: 'global-master', target: 'bright-group', type: 'domain', strength: 0.7 },
+  { source: 'august-solutions', target: 'global-master', type: 'technology', strength: 0.7 },
+  { source: 'global-master', target: 'bright-group', type: 'technology', strength: 0.6 },
+  { source: 'august-solutions', target: 'bright-group', type: 'pattern', strength: 0.5 },
 ];
 
 export const PROJECT_TECH_CONNECTIONS: ProjectConnection[] = [

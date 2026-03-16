@@ -184,3 +184,151 @@
   }
 }
 
+/* Tablet and below */
+@media (max-width: 1024px) {
+  .about-section {
+    padding: 80px 30px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small tablets */
+@media (max-width: 768px) and (min-width: 481px) {
+  .about-section {
+    padding: 50px 25px;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .about-paragraph {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .philosophy-card {
+    padding: 25px;
+  }
+
+  .philosophy-icon {
+    font-size: 2rem;
+  }
+
+  .philosophy-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .philosophy-card p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .about-section {
+    padding: 40px 18px;
+    min-height: auto;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .about-content {
+    margin-bottom: 40px;
+  }
+
+  .about-paragraph {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .philosophy-card {
+    padding: 20px;
+    border-radius: 6px;
+  }
+
+  .philosophy-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .philosophy-card h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .philosophy-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .tech-highlights {
+    padding: 25px 18px;
+    border-radius: 6px;
+  }
+
+  .tech-highlights h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .highlight-tags {
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 16px;
+  }
+}
+
+/* Extra small phones (320px) */
+@media (max-width: 320px) {
+  .about-section {
+    padding: 30px 15px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .about-paragraph {
+    font-size: 0.85rem;
+  }
+
+  .philosophy-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}
+

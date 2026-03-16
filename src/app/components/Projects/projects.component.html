@@ -1,16 +1,16 @@
 <section id="work-section" class="projects-section" appScrollReveal>
   <div class="projects-container">
     <div class="section-header">
-      <h2 class="section-title">Project Network</h2>
-      <p class="section-subtitle">Interactive data visualization of engineering work</p>
+      <h2 class="section-title">Featured Work</h2>
+      <p class="section-subtitle">Web applications showcasing modern frontend development</p>
     </div>
 
     <!-- Neural Projects Visualization -->
     <app-neural-projects></app-neural-projects>
 
-    <!-- Project Cards Grid (Legacy View) -->
+    <!-- Project Cards Grid -->
     <div class="projects-legacy-section">
-      <h3>All Projects</h3>
+      <h3>Projects</h3>
       <div class="projects-grid">
         <a *ngFor="let project of projects; let i = index"
            class="project-card"

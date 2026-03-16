@@ -8,7 +8,7 @@
 .neural-canvas-wrapper {
   position: relative;
   width: 100%;
-  height: 650px;
+  height: 500px;
   background: transparent;
   border: none;
   border-radius: 12px;
@@ -302,7 +302,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .neural-canvas-wrapper {
-    height: 500px;
+    height: 450px;
   }
 
   .project-detail-panel {
@@ -325,7 +325,7 @@
 
 @media (max-width: 480px) {
   .neural-canvas-wrapper {
-    height: 400px;
+    height: 350px;
   }
 
   .project-detail-panel {

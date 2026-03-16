@@ -11,7 +11,7 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
 })
 export class HeroComponent implements OnInit, AfterViewInit {
   displayedText = '';
-  fullText = 'Building Scalable Systems';
+  fullText = 'Crafting User-Centric Interfaces';
   isTypingComplete = false;
   headlineVisible = false;
 

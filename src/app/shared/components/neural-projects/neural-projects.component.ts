@@ -57,7 +57,7 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
     const centerX = this.canvas ? this.canvas.width / 2 : 600;
     const centerY = this.canvas ? this.canvas.height / 2 : 350;
     
-    // Root node
+    // Root node in center
     const root = this.projects.find(p => p.id === 'root-projects');
     if (root) {
       root.x = centerX;
@@ -66,48 +66,20 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
       root.vy = 0;
     }
 
-    // Branch positions in a cross pattern
-    const branchDistance = 200;
-    const branchPositions: { [key: string]: { x: number; y: number } } = {
-      'branch-web-apps': { x: centerX - branchDistance, y: centerY - branchDistance },
-      'branch-ai-projects': { x: centerX + branchDistance, y: centerY - branchDistance },
-      'branch-dashboards': { x: centerX - branchDistance, y: centerY + branchDistance },
-      'branch-tools': { x: centerX + branchDistance, y: centerY + branchDistance },
-    };
-
-    // Position branch nodes
-    Object.entries(branchPositions).forEach(([branchId, pos]) => {
-      const branch = this.projects.find(p => p.id === branchId);
-      if (branch) {
-        branch.x = pos.x;
-        branch.y = pos.y;
-        branch.vx = 0;
-        branch.vy = 0;
-      }
+    // Position project nodes left and right alternating
+    const projectNodes = this.projects.filter(p => p.type === 'project');
+    const horizontalDistance = 250;
+    const verticalSpacing = 200;
+    
+    projectNodes.forEach((project, index) => {
+      const isLeft = index % 2 === 0; // 0, 2, 4... go left; 1, 3, 5... go right
+      const rowIndex = Math.floor(index / 2);
+      
+      project.x = isLeft ? centerX - horizontalDistance : centerX + horizontalDistance;
+      project.y = centerY + (rowIndex - projectNodes.length / 4) * verticalSpacing;
+      project.vx = (Math.random() - 0.5) * 0.2;
+      project.vy = (Math.random() - 0.5) * 0.2;
     });
-
-    // Position project nodes around their branches
-    const projectRadius = 80;
-    this.projects
-      .filter(p => p.type === 'project')
-      .forEach((project, index) => {
-        let branchPos = branchPositions['branch-web-apps']; // Default
-        if (project.category === 'AI') {
-          branchPos = branchPositions['branch-ai-projects'];
-        } else if (project.category === 'Analytics') {
-          branchPos = branchPositions['branch-dashboards'];
-        } else if (project.category === 'Tools') {
-          branchPos = branchPositions['branch-tools'];
-        }
-
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * projectRadius * 0.6 + projectRadius * 0.2;
-
-        project.x = branchPos.x + Math.cos(angle) * distance;
-        project.y = branchPos.y + Math.sin(angle) * distance;
-        project.vx = (Math.random() - 0.5) * 0.3;
-        project.vy = (Math.random() - 0.5) * 0.3;
-      });
   }
 
   private resizeCanvas(): void {
@@ -141,58 +113,44 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
   };
 
   private updatePhysics(): void {
-    const friction = 0.94;
-    const branchAttraction = 0.12;
-    const repulsion = 350;
-
-    const branchPositions: { [key: string]: { x: number; y: number } } = {
-      'branch-web-apps': { x: this.canvas.width / 2 - 200, y: this.canvas.height / 2 - 200 },
-      'branch-ai-projects': { x: this.canvas.width / 2 + 200, y: this.canvas.height / 2 - 200 },
-      'branch-dashboards': { x: this.canvas.width / 2 - 200, y: this.canvas.height / 2 + 200 },
-      'branch-tools': { x: this.canvas.width / 2 + 200, y: this.canvas.height / 2 + 200 },
-    };
+    const friction = 0.92;
+    const centerAttraction = 0.08;
+    const repulsion = 300;
+    const centerX = this.canvas.width / 2;
+    const centerY = this.canvas.height / 2;
 
     this.projects.forEach((project) => {
-      // Keep branch and root nodes fixed
-      if (project.type === 'root' || project.type === 'branch') {
+      // Keep root node fixed in center
+      if (project.type === 'root') {
         project.vx = 0;
         project.vy = 0;
         return;
       }
 
-      // Apply physics only to project nodes
-      // Find parent branch
-      let parentBranch = 'branch-web-apps';
-      if (project.category === 'AI') {
-        parentBranch = 'branch-ai-projects';
-      } else if (project.category === 'Analytics') {
-        parentBranch = 'branch-dashboards';
-      } else if (project.category === 'Tools') {
-        parentBranch = 'branch-tools';
-      }
-
-      const branchPos = branchPositions[parentBranch];
-
-      // Attraction to parent branch
-      const dx = branchPos.x - project.x!;
-      const dy = branchPos.y - project.y!;
+      // Apply physics to project nodes only
+      // Gentle attraction toward approximate positions
+      const isLeft = this.projects.indexOf(project) % 2 === 1 || (project.id === 'bright-group');
+      const targetX = isLeft ? centerX - 250 : centerX + 250;
+      
+      const dx = targetX - project.x!;
+      const dy = centerY - project.y!;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance > 2) {
-        project.vx! += (dx / distance) * branchAttraction;
-        project.vy! += (dy / distance) * branchAttraction;
+        project.vx! += (dx / distance) * centerAttraction * 0.5;
+        project.vy! += (dy / distance) * centerAttraction * 0.3;
       }
 
       // Repulsion from other nodes
       this.projects.forEach((other) => {
-        if (project.id === other.id) return;
+        if (project.id === other.id || other.type === 'branch') return;
 
         const rdx = project.x! - other.x!;
         const rdy = project.y! - other.y!;
         const rdist = Math.sqrt(rdx * rdx + rdy * rdy) + 1;
 
         if (rdist < repulsion) {
-          const force = ((repulsion - rdist) / repulsion) * 0.25;
+          const force = ((repulsion - rdist) / repulsion) * 0.2;
           project.vx! += (rdx / rdist) * force;
           project.vy! += (rdy / rdist) * force;
         }
@@ -203,31 +161,31 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
 
       // Limit velocity
       const vel = Math.sqrt(project.vx! * project.vx! + project.vy! * project.vy!);
-      if (vel > 2) {
-        project.vx! = (project.vx! / vel) * 2;
-        project.vy! = (project.vy! / vel) * 2;
+      if (vel > 1.5) {
+        project.vx! = (project.vx! / vel) * 1.5;
+        project.vy! = (project.vy! / vel) * 1.5;
       }
 
       project.x! += project.vx!;
       project.y! += project.vy!;
 
       // Boundary constraints
-      const padding = 60;
+      const padding = 80;
       if (project.x! < padding) {
         project.x = padding;
-        project.vx! *= -0.2;
+        project.vx! *= -0.3;
       }
       if (project.x! > this.canvas.width - padding) {
         project.x = this.canvas.width - padding;
-        project.vx! *= -0.2;
+        project.vx! *= -0.3;
       }
       if (project.y! < padding) {
         project.y = padding;
-        project.vy! *= -0.2;
+        project.vy! *= -0.3;
       }
       if (project.y! > this.canvas.height - padding) {
         project.y = this.canvas.height - padding;
-        project.vy! *= -0.2;
+        project.vy! *= -0.3;
       }
     });
   }

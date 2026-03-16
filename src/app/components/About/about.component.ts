@@ -18,24 +18,24 @@ interface PhilosophyItem {
 export class AboutComponent {
   philosophyItems: PhilosophyItem[] = [
     {
-      icon: '🏗️',
-      title: 'System Design',
-      description: 'Architecture-first approach to building scalable, maintainable systems that grow with your needs.',
+      icon: '�',
+      title: 'User Experience',
+      description: 'Prioritizing intuitive, accessible interfaces. Every detail matters—from responsive layouts to smooth interactions that delight users.',
     },
     {
       icon: '⚡',
       title: 'Performance',
-      description: 'Every byte matters. Optimizing for speed, efficiency, and user experience across all devices.',
+      description: 'Optimizing for speed and efficiency. Fast-loading, smooth-running applications that respect user bandwidth and device capabilities.',
     },
     {
       icon: '🔧',
       title: 'Clean Code',
-      description: 'Writing code that\'s easy to understand, test, and maintain. Technical debt is a real cost.',
+      description: 'Writing maintainable, scalable component architectures. Code that others can understand and build upon with confidence.',
     },
     {
       icon: '🎯',
-      title: 'Problem Solving',
-      description: 'Deep understanding of business requirements translated into elegant technical solutions.',
+      title: 'Attention to Detail',
+      description: 'Pixel-perfect implementations with consistent design systems. Quality is in the refinement and attention to every interaction.',
     },
   ];
 }

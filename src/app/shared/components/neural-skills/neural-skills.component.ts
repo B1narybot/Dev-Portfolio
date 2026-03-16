@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { SkillFilterPipe } from '../../pipes/skill-filter.pipe';
 import { SkillNode, Connection, NEURAL_SKILLS_DATA, SKILL_CONNECTIONS, CLUSTER_POSITIONS, CLUSTER_COLORS } from '../../data/neural-skills.data';
 import { ParticleSystem } from '../../utils/particle.system';
@@ -16,6 +17,14 @@ interface SkillDetail {
   styleUrls: ['./neural-skills.component.css'],
   standalone: true,
   imports: [CommonModule, SkillFilterPipe],
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms cubic-bezier(0.34, 1.56, 0.64, 1)', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class NeuralSkillsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('skillsCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
