@@ -21,13 +21,13 @@
           <div class="metric">
             <span class="metric-label">Complexity</span>
             <div class="metric-bars">
-              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.complexity"></span>
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= (selectedProjectDetail.node.complexity || 0)"></span>
             </div>
           </div>
           <div class="metric">
             <span class="metric-label">Impact</span>
             <div class="metric-bars">
-              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= selectedProjectDetail.node.impact"></span>
+              <span class="bar" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= (selectedProjectDetail.node.impact || 0)"></span>
             </div>
           </div>
         </div>
@@ -51,24 +51,20 @@
 
     <!-- Connection Legend -->
     <div class="connection-legend">
-      <div class="legend-title">Connection Types</div>
+      <div class="legend-title">Technical Connections</div>
       <div class="legend-item">
         <div class="legend-line tech"></div>
-        <span>Technology</span>
+        <span>Shared Technologies</span>
       </div>
       <div class="legend-item">
         <div class="legend-line pattern"></div>
-        <span>Architecture</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-line domain"></div>
-        <span>Domain</span>
+        <span>Common Patterns</span>
       </div>
     </div>
   </div>
 
   <!-- Instructions -->
   <div class="neural-instructions">
-    <p>✨ Hover over project nodes to explore connections. Click to view details and visit projects.</p>
+    <p>Click on any project node to view details. Hover to see technical connections.</p>
   </div>
 </div>

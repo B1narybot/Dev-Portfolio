@@ -1,12 +1,12 @@
 <div class="neural-skills-container data-layer-reveal">
   <div class="neural-canvas-wrapper">
-    <canvas 
-      #skillsCanvas 
+    <canvas
+      #skillsCanvas
       class="neural-canvas"
       (mousemove)="onCanvasMouseMove($event)"
       (click)="onCanvasClick($event)">
     </canvas>
-    
+
     <!-- Skill Detail Panel -->
     <div *ngIf="selectedSkillDetail" class="skill-detail-panel" [@slideIn]>
       <div class="detail-header">
@@ -41,6 +41,11 @@
 
     <!-- Cluster Legend -->
     <div class="cluster-legend">
+      <div class="legend-title">Skill Branches</div>
+      <!-- <div class="legend-item">
+        <div class="legend-dot" style="border-color: #00d4ff;"></div>
+        <span>Engineering Skills</span>
+      </div> -->
       <div class="legend-item">
         <div class="legend-dot" style="border-color: #00bfff;"></div>
         <span>Frontend</span>

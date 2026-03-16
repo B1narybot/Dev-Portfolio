@@ -43,9 +43,8 @@ export class EngineeringMetricsComponent implements OnInit, AfterViewInit, OnDes
   private animate = (): void => {
     this.time += 0.016;
 
-    // Clear canvas
-    this.ctx.fillStyle = 'rgba(10, 10, 10, 0.3)';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // Clear canvas completely to show background
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Draw radial chart for technology distribution
     this.drawRadialChart();
@@ -63,109 +62,133 @@ export class EngineeringMetricsComponent implements OnInit, AfterViewInit, OnDes
   private drawRadialChart(): void {
     const centerX = this.canvas.width / 4;
     const centerY = this.canvas.height / 2;
-    const radius = 80;
-    const progress = Math.min(this.time / 1.2, 1);
+    const baseRadius = 80;
+    
+    // Smooth ease-out animation for segment expansion
+    const easeProgress = this.easeOutCubic(Math.min(this.time / 1.2, 1));
+    const radius = baseRadius * (0.5 + easeProgress * 0.5);
 
     // Draw background circle
-    this.ctx.strokeStyle = 'rgba(155, 77, 150, 0.1)';
+    this.ctx.strokeStyle = 'rgba(155, 77, 150, 0.15)';
     this.ctx.lineWidth = 1;
     this.ctx.beginPath();
-    this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    this.ctx.arc(centerX, centerY, baseRadius, 0, Math.PI * 2);
     this.ctx.stroke();
 
-    // Draw segments
+    // Draw segments with improved styling
     let currentAngle = -Math.PI / 2;
 
-    this.techDistribution.forEach((tech) => {
+    this.techDistribution.forEach((tech, index) => {
       const sliceAngle = (tech.value / 100) * Math.PI * 2;
-      const endAngle = currentAngle + sliceAngle * progress;
+      const endAngle = currentAngle + sliceAngle * easeProgress;
 
-      // Draw segment
-      this.ctx.fillStyle = tech.color + '66';
+      // Draw segment with semi-transparent fill
+      this.ctx.fillStyle = tech.color + '40';
       this.ctx.beginPath();
       this.ctx.moveTo(centerX, centerY);
       this.ctx.arc(centerX, centerY, radius, currentAngle, endAngle);
       this.ctx.closePath();
       this.ctx.fill();
 
-      // Draw border
+      // Draw border with refined thickness
       this.ctx.strokeStyle = tech.color;
-      this.ctx.lineWidth = 2;
+      this.ctx.lineWidth = 1.5;
       this.ctx.beginPath();
       this.ctx.moveTo(centerX, centerY);
       this.ctx.arc(centerX, centerY, radius, currentAngle, endAngle);
       this.ctx.closePath();
       this.ctx.stroke();
 
-      // Draw label
+      // Draw labels with better positioning
       const labelAngle = currentAngle + sliceAngle / 2;
-      const labelX = centerX + Math.cos(labelAngle) * (radius + 30);
-      const labelY = centerY + Math.sin(labelAngle) * (radius + 30);
+      const labelDist = radius + 35;
+      const labelX = centerX + Math.cos(labelAngle) * labelDist;
+      const labelY = centerY + Math.sin(labelAngle) * labelDist;
 
+      // Label with color
       this.ctx.fillStyle = tech.color;
-      this.ctx.font = 'bold 12px Arial';
+      this.ctx.font = 'bold 11px Arial';
       this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
       this.ctx.fillText(tech.label, labelX, labelY);
 
-      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-      this.ctx.font = '11px Arial';
-      this.ctx.fillText(tech.value + '%', labelX, labelY + 14);
+      // Percentage with subtle color
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      this.ctx.font = '10px Arial';
+      this.ctx.fillText(tech.value + '%', labelX, labelY + 13);
 
       currentAngle = endAngle;
     });
 
     // Draw center label
     this.ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-    this.ctx.font = 'bold 14px Arial';
-    this.ctx.fillText('Tech', centerX, centerY - 8);
+    this.ctx.font = 'bold 13px Arial';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText('Technology', centerX, centerY - 8);
     this.ctx.font = '12px Arial';
-    this.ctx.fillStyle = 'rgba(155, 77, 150, 0.8)';
-    this.ctx.fillText('Distribution', centerX, centerY + 10);
+    this.ctx.fillStyle = 'rgba(155, 77, 150, 0.85)';
+    this.ctx.fillText('Stack', centerX, centerY + 8);
   }
 
   private drawMetricBars(): void {
     const startX = this.canvas.width / 2 + 40;
     const startY = 60;
-    const barWidth = 200;
-    const barHeight = 16;
-    const spacing = 60;
+    const barWidth = 180;
+    const barHeight = 14;
+    const spacing = 55;
 
-    const progress = Math.min(this.time / 1.5, 1);
+    // Smooth ease-out animation
+    const easeProgress = this.easeOutQuart(Math.min(this.time / 1.5, 1));
 
     Object.entries(this.archMetrics).forEach((entry, index) => {
       const [label, value] = entry as [string, number];
       const y = startY + index * spacing;
 
       // Draw label
-      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      this.ctx.font = 'bold 12px Arial';
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+      this.ctx.font = 'bold 11px Arial';
       this.ctx.textAlign = 'left';
       this.ctx.textBaseline = 'middle';
       this.ctx.fillText(label, startX, y - 15);
 
       // Draw background bar
-      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
       this.ctx.fillRect(startX, y, barWidth, barHeight);
+      
+      // Draw subtle border
+      this.ctx.strokeStyle = 'rgba(155, 77, 150, 0.15)';
+      this.ctx.lineWidth = 0.5;
+      this.ctx.strokeRect(startX, y, barWidth, barHeight);
 
-      // Draw progress bar
-      const fillWidth = barWidth * (value / 100) * progress;
+      // Draw progress bar with animation
+      const fillWidth = barWidth * (value / 100) * easeProgress;
       const gradient = this.ctx.createLinearGradient(startX, y, startX + fillWidth, y);
       gradient.addColorStop(0, '#00bfff');
       gradient.addColorStop(1, '#9b4d96');
       this.ctx.fillStyle = gradient;
       this.ctx.fillRect(startX, y, fillWidth, barHeight);
 
-      // Draw value text
-      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-      this.ctx.font = '11px Arial';
+      // Draw animated value with counting effect
+      const animatedValue = Math.round(value * easeProgress);
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+      this.ctx.font = '10px Arial';
       this.ctx.textAlign = 'left';
-      this.ctx.fillText(Math.round(value * progress) + '%', startX + barWidth + 15, y + barHeight / 2);
+      this.ctx.textBaseline = 'middle';
+      this.ctx.fillText(animatedValue + '%', startX + barWidth + 12, y + barHeight / 2);
     });
   }
 
   getTechPercentage(tech: MetricData): number {
     return tech.value;
+  }
+
+  private easeOutCubic(t: number): number {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  private easeOutQuart(t: number): number {
+    return 1 - Math.pow(1 - t, 4);
   }
 
   ngOnDestroy(): void {

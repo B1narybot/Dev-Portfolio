@@ -54,16 +54,31 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   private initializeProjectPositions(): void {
-    const centerX = 600;
-    const centerY = 350;
-    const radius = 200;
+    const centerX = this.canvas ? this.canvas.width / 2 : 600;
+    const centerY = this.canvas ? this.canvas.height / 2 : 350;
+    
+    // Root node in center
+    const root = this.projects.find(p => p.id === 'root-projects');
+    if (root) {
+      root.x = centerX;
+      root.y = centerY;
+      root.vx = 0;
+      root.vy = 0;
+    }
 
-    this.projects.forEach((project, index) => {
-      const angle = (index / this.projects.length) * Math.PI * 2;
-      project.x = centerX + Math.cos(angle) * radius;
-      project.y = centerY + Math.sin(angle) * radius;
-      project.vx = (Math.random() - 0.5) * 1;
-      project.vy = (Math.random() - 0.5) * 1;
+    // Position project nodes left and right alternating
+    const projectNodes = this.projects.filter(p => p.type === 'project');
+    const horizontalDistance = 250;
+    const verticalSpacing = 200;
+    
+    projectNodes.forEach((project, index) => {
+      const isLeft = index % 2 === 0; // 0, 2, 4... go left; 1, 3, 5... go right
+      const rowIndex = Math.floor(index / 2);
+      
+      project.x = isLeft ? centerX - horizontalDistance : centerX + horizontalDistance;
+      project.y = centerY + (rowIndex - projectNodes.length / 4) * verticalSpacing;
+      project.vx = (Math.random() - 0.5) * 0.2;
+      project.vy = (Math.random() - 0.5) * 0.2;
     });
   }
 
@@ -83,8 +98,8 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
     // Update reveal progress
     this.revealManager.update(16.667);
 
-    this.ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // Clear canvas completely to show background
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.drawConnections();
 
@@ -98,32 +113,44 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
   };
 
   private updatePhysics(): void {
-    const friction = 0.96;
-    const centerAttraction = 0.05;
-    const repulsion = 400;
-
+    const friction = 0.92;
+    const centerAttraction = 0.08;
+    const repulsion = 300;
     const centerX = this.canvas.width / 2;
     const centerY = this.canvas.height / 2;
 
     this.projects.forEach((project) => {
-      // Center attraction
-      const dx = centerX - project.x!;
+      // Keep root node fixed in center
+      if (project.type === 'root') {
+        project.vx = 0;
+        project.vy = 0;
+        return;
+      }
+
+      // Apply physics to project nodes only
+      // Gentle attraction toward approximate positions
+      const isLeft = this.projects.indexOf(project) % 2 === 1 || (project.id === 'bright-group');
+      const targetX = isLeft ? centerX - 250 : centerX + 250;
+      
+      const dx = targetX - project.x!;
       const dy = centerY - project.y!;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      project.vx! += (dx / distance) * centerAttraction;
-      project.vy! += (dy / distance) * centerAttraction;
+      if (distance > 2) {
+        project.vx! += (dx / distance) * centerAttraction * 0.5;
+        project.vy! += (dy / distance) * centerAttraction * 0.3;
+      }
 
       // Repulsion from other nodes
       this.projects.forEach((other) => {
-        if (project.id === other.id) return;
+        if (project.id === other.id || other.type === 'branch') return;
 
         const rdx = project.x! - other.x!;
         const rdy = project.y! - other.y!;
         const rdist = Math.sqrt(rdx * rdx + rdy * rdy) + 1;
 
         if (rdist < repulsion) {
-          const force = ((repulsion - rdist) / repulsion) * 0.3;
+          const force = ((repulsion - rdist) / repulsion) * 0.2;
           project.vx! += (rdx / rdist) * force;
           project.vy! += (rdy / rdist) * force;
         }
@@ -132,15 +159,34 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
       project.vx! *= friction;
       project.vy! *= friction;
 
+      // Limit velocity
+      const vel = Math.sqrt(project.vx! * project.vx! + project.vy! * project.vy!);
+      if (vel > 1.5) {
+        project.vx! = (project.vx! / vel) * 1.5;
+        project.vy! = (project.vy! / vel) * 1.5;
+      }
+
       project.x! += project.vx!;
       project.y! += project.vy!;
 
       // Boundary constraints
       const padding = 80;
-      if (project.x! < padding) project.x = padding;
-      if (project.x! > this.canvas.width - padding) project.x = this.canvas.width - padding;
-      if (project.y! < padding) project.y = padding;
-      if (project.y! > this.canvas.height - padding) project.y = this.canvas.height - padding;
+      if (project.x! < padding) {
+        project.x = padding;
+        project.vx! *= -0.3;
+      }
+      if (project.x! > this.canvas.width - padding) {
+        project.x = this.canvas.width - padding;
+        project.vx! *= -0.3;
+      }
+      if (project.y! < padding) {
+        project.y = padding;
+        project.vy! *= -0.3;
+      }
+      if (project.y! > this.canvas.height - padding) {
+        project.y = this.canvas.height - padding;
+        project.vy! *= -0.3;
+      }
     });
   }
 
@@ -179,7 +225,6 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
 
   private drawProjects(): void {
     this.projects.forEach((project) => {
-      const baseRadius = 48;
       const isSelected = this.selectedProjectId === project.id;
       const isHovered = this.hoveredProjectId === project.id;
 
@@ -187,75 +232,139 @@ export class NeuralProjectsComponent implements OnInit, AfterViewInit, OnDestroy
       const revealScale = this.revealManager.getNodeScale(project.id);
       const revealOpacity = this.revealManager.getNodeOpacity(project.id);
 
-      const scale = (isSelected ? 1.4 : isHovered ? 1.2 : 1) * revealScale;
-      const radius = baseRadius * scale;
-
-      // Draw glow
-      const gradient = this.ctx.createRadialGradient(
-        project.x!,
-        project.y!,
-        0,
-        project.x!,
-        project.y!,
-        radius * 1.3
-      );
-
-      const glowOpacity = (Math.random() * 0.3 + 0.2) * revealOpacity;
-      const glowColor = `rgba(0, 191, 255, ${glowOpacity})`;
-      gradient.addColorStop(0, glowColor);
-      gradient.addColorStop(1, 'rgba(0, 191, 255, 0)');
-
-      this.ctx.fillStyle = gradient;
-      this.ctx.beginPath();
-      this.ctx.arc(project.x!, project.y!, radius * 1.3, 0, Math.PI * 2);
-      this.ctx.fill();
-
-      // Draw main node circle with reveal opacity
-      const nodeOpacity = Math.round(0xff * revealOpacity).toString(16).padStart(2, '0');
-      this.ctx.fillStyle = (isSelected ? 'rgba(0, 191, 255, 0.9)' : 'rgba(26, 26, 46, 0.8)').slice(0, -1) + revealOpacity + ')';
-      this.ctx.strokeStyle = '#00bfff' + nodeOpacity;
-      this.ctx.lineWidth = (isSelected ? 3 : isHovered ? 2.5 : 2) * revealScale;
-      this.ctx.beginPath();
-      this.ctx.arc(project.x!, project.y!, radius, 0, Math.PI * 2);
-      this.ctx.fill();
-      this.ctx.stroke();
-
-      // Draw complexity/impact indicator
-      const size = project.complexity * 2 * revealScale;
-      this.ctx.fillStyle = `rgba(155, 77, 150, ${0.8 * revealOpacity})`;
-      this.ctx.fillRect(
-        project.x! - size / 2,
-        project.y! - radius - 15,
-        size,
-        size
-      );
-
-      // Draw project label
-      this.ctx.fillStyle = `rgba(255, 255, 255, ${0.9 * revealOpacity})`;
-      this.ctx.font = 'bold 11px Arial';
-      this.ctx.textAlign = 'center';
-      this.ctx.textBaseline = 'middle';
-
-      const lines = project.name.split(' ');
-      const maxLength = Math.ceil(Math.sqrt(project.name.length));
-      const wrappedLines = [];
-
-      let currentLine = '';
-      lines.forEach((word) => {
-        if ((currentLine + ' ' + word).length > maxLength) {
-          if (currentLine) wrappedLines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = currentLine ? currentLine + ' ' + word : word;
-        }
-      });
-      if (currentLine) wrappedLines.push(currentLine);
-
-      wrappedLines.forEach((line, i) => {
-        const yOffset = (i - wrappedLines.length / 2 + 0.5) * 11;
-        this.ctx.fillText(line, project.x!, project.y! + yOffset);
-      });
+      // Draw based on node type
+      if (project.type === 'root') {
+        this.drawRootNode(project, isSelected, isHovered, revealScale, revealOpacity);
+      } else if (project.type === 'branch') {
+        this.drawBranchNode(project, isSelected, isHovered, revealScale, revealOpacity);
+      } else {
+        this.drawProjectNode(project, isSelected, isHovered, revealScale, revealOpacity);
+      }
     });
+  }
+
+  private drawRootNode(project: ProjectNode, isSelected: boolean, isHovered: boolean, scale: number, opacity: number): void {
+    const radius = 24 * scale;
+
+    // Draw large glow
+    const glowGradient = this.ctx.createRadialGradient(
+      project.x!, project.y!, 0,
+      project.x!, project.y!, radius * 2
+    );
+    const glowColor = '#00d4ff';
+    glowGradient.addColorStop(0, `${glowColor}20`);
+    glowGradient.addColorStop(1, `${glowColor}00`);
+
+    this.ctx.fillStyle = glowGradient;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius * 2, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Draw node circle
+    const nodeOpacity = Math.round(0xff * opacity).toString(16).padStart(2, '0');
+    this.ctx.fillStyle = '#0a0a1a' + nodeOpacity;
+    this.ctx.strokeStyle = glowColor + nodeOpacity;
+    this.ctx.lineWidth = 2 * scale;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.stroke();
+
+    // Draw inner ring
+    this.ctx.strokeStyle = glowColor + Math.round(0x80 * opacity).toString(16).padStart(2, '0');
+    this.ctx.lineWidth = 1;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius * 0.6, 0, Math.PI * 2);
+    this.ctx.stroke();
+
+    // Draw label
+    this.ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * opacity})`;
+    this.ctx.font = 'bold 13px Arial';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText(project.name, project.x!, project.y!);
+  }
+
+  private drawBranchNode(project: ProjectNode, isSelected: boolean, isHovered: boolean, scale: number, opacity: number): void {
+    const radius = 16 * scale;
+
+    // Draw subtle glow for branches
+    const glowGradient = this.ctx.createRadialGradient(
+      project.x!, project.y!, 0,
+      project.x!, project.y!, radius * 1.8
+    );
+    glowGradient.addColorStop(0, `rgba(155, 77, 150, ${0.15 * opacity})`);
+    glowGradient.addColorStop(1, `rgba(155, 77, 150, 0)`);
+
+    this.ctx.fillStyle = glowGradient;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius * 1.8, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Draw branch node
+    const nodeOpacity = Math.round(0xff * opacity).toString(16).padStart(2, '0');
+    this.ctx.fillStyle = '#0a0a1a' + nodeOpacity;
+    this.ctx.strokeStyle = 'rgba(155, 77, 150, ' + opacity + ')';
+    this.ctx.lineWidth = 1.5 * scale;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.stroke();
+
+    // Draw label
+    this.ctx.fillStyle = `rgba(255, 255, 255, ${0.85 * opacity})`;
+    this.ctx.font = 'bold 10px Arial';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText(project.name, project.x!, project.y!);
+  }
+
+  private drawProjectNode(project: ProjectNode, isSelected: boolean, isHovered: boolean, scale: number, opacity: number): void {
+    const baseRadius = 18;
+    const radius = baseRadius * (isSelected ? 1.3 : isHovered ? 1.15 : 1) * scale;
+
+    // Draw glow
+    const glowGradient = this.ctx.createRadialGradient(
+      project.x!, project.y!, 0,
+      project.x!, project.y!, radius * 1.5
+    );
+    
+    const glowOpacity = (isHovered ? 0.25 : 0.12) * opacity;
+    glowGradient.addColorStop(0, `rgba(0, 191, 255, ${glowOpacity})`);
+    glowGradient.addColorStop(1, `rgba(0, 191, 255, 0)`);
+
+    this.ctx.fillStyle = glowGradient;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius * 1.5, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Draw node
+    const nodeOpacity = Math.round(0xff * opacity).toString(16).padStart(2, '0');
+    this.ctx.fillStyle = '#0a0a1a' + nodeOpacity;
+    this.ctx.strokeStyle = '#00bfff' + nodeOpacity;
+    this.ctx.lineWidth = (isSelected ? 2 : isHovered ? 1.5 : 1) * scale;
+    this.ctx.beginPath();
+    this.ctx.arc(project.x!, project.y!, radius, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.stroke();
+
+    // Draw impact/complexity indicator as small bars
+    const barCount = project.impact ?? 0;
+    const barSize = 3 * scale;
+    const spacing = barSize + 2;
+    const startX = project.x! - (barCount - 1) * spacing / 2;
+
+    this.ctx.fillStyle = `rgba(155, 77, 150, ${0.7 * opacity})`;
+    for (let i = 0; i < barCount; i++) {
+      this.ctx.fillRect(startX + i * spacing, project.y! - radius - 10, barSize, barSize);
+    }
+
+    // Draw short label
+    this.ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * opacity})`;
+    this.ctx.font = 'bold 9px Arial';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText(project.name.split(' ')[0], project.x!, project.y!);
   }
 
   onCanvasMouseMove(event: MouseEvent): void {

@@ -6,8 +6,6 @@ import { HeroComponent } from './components/Hero/hero.component';
 import { AboutComponent } from './components/About/about.component';
 import { SkillsComponent } from './components/Skills/skills.component';
 import { ProjectsComponent } from './components/Projects/projects.component';
-import { ArchitectureComponent } from './components/Architecture/architecture.component';
-import { AIComponent } from './components/AI/ai.component';
 import { ContactComponent } from './components/Contact/contact.component';
 
 @Component({
@@ -23,8 +21,6 @@ import { ContactComponent } from './components/Contact/contact.component';
     AboutComponent,
     SkillsComponent,
     ProjectsComponent,
-    ArchitectureComponent,
-    AIComponent,
     ContactComponent,
   ],
 })
