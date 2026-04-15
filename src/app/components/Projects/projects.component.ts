@@ -24,26 +24,26 @@ export class ProjectsComponent {
   projects: Project[] = [
     {
       id: 1,
-      name: 'August Integrated Solutions',
-      description: 'Enterprise business solutions platform with custom workflows, scalable architecture, and seamless data integration for operational efficiency.',
+      name: 'House-of-Valta',
+      description: 'Elite Trading house dedicated to the mastery & trading of global financial markets Specializing in XAU/USD.',
       tech: ['Angular', 'Node.js', 'Express.js', 'PostgreSQL', 'TypeScript'],
-      link: 'https://augustintegrated.co.za/',
+      link: 'https://house-of-valta.netlify.app/',
       image: '/assets/gradient-01 2.png',
     },
     {
       id: 2,
-      name: 'Global Master',
-      description: 'Modern agency website built with React. Clean, responsive design emphasizing functionality and beautiful user interface.',
-      tech: ['React', 'TypeScript', 'Responsive Design', 'CSS/SCSS'],
-      link: 'https://global-master.netlify.app/',
-      image: '/assets/gradient-01 2.png',
-    },
-    {
-      id: 3,
       name: 'Bright Group LTD',
       description: 'Premium technology solutions provider website. Professional platform showcasing services and building client trust through elegant design.',
       tech: ['Web Design', 'Performance Optimization', 'SEO', 'Responsive'],
       link: 'https://brightgroupltd.com/',
+      image: '/assets/gradient-01 2.png',
+    },
+    {
+      id: 3,
+      name: 'Bleval.inc',
+      description: 'Digital Agency specializing in creating user centric digital solutions that sell and provide real value.',
+      tech: ['Angular', 'Node.js', 'Firebase', 'Express'],
+      link: '',
       image: '/assets/gradient-01 2.png',
     },
   ];

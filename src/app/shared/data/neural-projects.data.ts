@@ -40,66 +40,83 @@ export const PROJECT_NODES: ProjectNode[] = [
 
   // Projects: Left side (odd indices)
   {
-    id: 'august-solutions',
-    name: 'August Solutions',
-    description: 'Enterprise business solutions platform with custom workflows, scalable architecture, and seamless data integration.',
-    technologies: ['Angular', 'Node.js', 'Express.js', 'PostgreSQL', 'TypeScript'],
-    link: 'https://augustintegrated.co.za/',
+    id: 'House-of-Valta',
+    name: 'House-of-Valta',
+    description: 'Elite Trading house dedicated to the mastery & trading of global financial markets specializing in XAU/USD.',
+    technologies: ['React', 'Node.js', 'Express.js', 'Redis', 'TypeScript'],
+    link: 'https://house-of-valta.netlify.app/',
     category: 'Web',
     type: 'project',
-    complexity: 5,
-    impact: 5,
+    complexity: 4,
+    impact: 4,
   },
 
-  // Projects: Right side (even indices)
+  // Projects: Right side
   {
-    id: 'global-master',
-    name: 'Global Master',
-    description: 'Modern agency website. Clean, responsive design emphasizing functionality and beautiful user interface.',
-    technologies: ['React', 'TypeScript', 'CSS/SCSS', 'Responsive Design'],
-    link: 'https://global-master.netlify.app/',
+    id: 'Bleval.inc',
+    name: 'Bleval.inc',
+    description: 'Digital Agency specializing in creating user centric digital solutions that sell and provide real value.',
+    technologies: ['Angular', 'Node.js', 'Firebase', 'Express'],
+    link: '',
     category: 'Web',
     type: 'project',
-    complexity: 3,
-    impact: 4,
+    complexity: 4,
+    impact: 5,
   },
 
   // Projects: Left side
   {
-    id: 'bright-group',
-    name: 'Bright Group',
-    description: 'Premium technology solutions provider website. Professional platform showcasing services and building client trust.',
+    id: 'bright-group-ltd',
+    name: 'Bright Group LTD',
+    description: 'Premium technology solutions provider website showcasing services with elegant design and strong performance.',
     technologies: ['Web Design', 'Performance Optimization', 'SEO', 'Responsive'],
     link: 'https://brightgroupltd.com/',
     category: 'Web',
     type: 'project',
-    complexity: 2,
-    impact: 3,
+    complexity: 4,
+    impact: 4,
+  },
+
+  // Projects: Right side
+  {
+    id: 'global-master',
+    name: 'Global Master',
+    description: 'Modern agency website built with React featuring clean responsive design and polished user experience.',
+    technologies: ['React', 'TypeScript', 'Responsive Design', 'CSS/SCSS'],
+    link: 'https://global-master.netlify.app/',
+    category: 'Web',
+    type: 'project',
+    complexity: 4,
+    impact: 4,
   },
 ];
 
 export const PROJECT_CONNECTIONS: ProjectConnection[] = [
   // Root to projects
-  { source: 'root-projects', target: 'august-solutions', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'House-of-Valta', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'Bleval.inc', type: 'domain', strength: 0.95 },
+  { source: 'root-projects', target: 'bright-group-ltd', type: 'domain', strength: 0.95 },
   { source: 'root-projects', target: 'global-master', type: 'domain', strength: 0.95 },
-  { source: 'root-projects', target: 'bright-group', type: 'domain', strength: 0.95 },
 
   // Project interconnections
-  { source: 'august-solutions', target: 'global-master', type: 'technology', strength: 0.7 },
-  { source: 'global-master', target: 'bright-group', type: 'technology', strength: 0.6 },
-  { source: 'august-solutions', target: 'bright-group', type: 'pattern', strength: 0.5 },
+  { source: 'House-of-Valta', target: 'Bleval.inc', type: 'technology', strength: 0.75 },
+  { source: 'House-of-Valta', target: 'bright-group-ltd', type: 'technology', strength: 0.7 },
+  { source: 'Bleval.inc', target: 'bright-group-ltd', type: 'pattern', strength: 0.6 },
+  { source: 'bright-group-ltd', target: 'global-master', type: 'technology', strength: 0.55 },
 ];
 
 export const PROJECT_TECH_CONNECTIONS: ProjectConnection[] = [
   // Technology connections to projects
   // Angular projects
   { source: 'august-solutions', target: 'angular-skill', type: 'technology', strength: 0.95 },
+  { source: 'Bleval.inc', target: 'angular-skill', type: 'technology', strength: 0.9 },
   
   // React projects
   { source: 'global-master', target: 'react-skill', type: 'technology', strength: 0.9 },
   
   // Node.js projects
   { source: 'august-solutions', target: 'nodejs-skill', type: 'technology', strength: 0.9 },
+  { source: 'global-master', target: 'nodejs-skill', type: 'technology', strength: 0.85 },
   
   // TypeScript usage
   { source: 'august-solutions', target: 'typescript-skill', type: 'technology', strength: 0.95 },

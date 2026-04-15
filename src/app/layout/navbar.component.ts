@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   navOpen = false;
 
   @Output() navToggle = new EventEmitter<boolean>();
@@ -16,12 +16,22 @@ export class NavbarComponent {
 
   toggleNav(): void {
     this.navOpen = !this.navOpen;
+    this.updateBodyScrollLock(this.navOpen);
     this.navToggle.emit(this.navOpen);
   }
 
   closeNav(): void {
     this.navOpen = false;
+    this.updateBodyScrollLock(false);
     this.navClose.emit();
+  }
+
+  private updateBodyScrollLock(open: boolean): void {
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  ngOnDestroy(): void {
+    this.updateBodyScrollLock(false);
   }
 
   scrollToSection(sectionId: string): void {
