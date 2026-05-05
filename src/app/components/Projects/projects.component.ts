@@ -43,7 +43,7 @@ export class ProjectsComponent {
       name: 'Bleval.inc',
       description: 'Digital Agency specializing in creating user centric digital solutions that sell and provide real value.',
       tech: ['Angular', 'Node.js', 'Firebase', 'Express'],
-      link: '',
+      link: 'https://blevalincweb.netlify.app/home',
       image: '/assets/gradient-01 2.png',
     },
   ];
